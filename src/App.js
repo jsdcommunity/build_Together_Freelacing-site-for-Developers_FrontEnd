@@ -1,9 +1,11 @@
-import './App.css';
+import React from "react";
+import "./App.css";
+import LogoCard from "./components/LogoCard/LogoCard";
 
 function App() {
   return (
     <div className="App">
-      <h2>Project started...</h2>
+      <LogoCard />
     </div>
   );
 }
