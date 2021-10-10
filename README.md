@@ -66,7 +66,7 @@ Clone this repository to your local system.
 git clone https://github.com/jsdcommunity/build_Together_Freelacing-site-for-Developers_FrontEnd.git
 ```
 
-Then go to this project directory by runniny command `cd build_Together_Freelacing-site-for-Developers_FrontEnd`
+Then go to this project directory by running command `cd build_Together_Freelacing-site-for-Developers_FrontEnd`
 
 Install required packages
 
