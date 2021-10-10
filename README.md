@@ -8,8 +8,8 @@
 <div align="center">
 
 [![Status](https://img.shields.io/badge/status-active-success.svg)]()
-[![GitHub Issues](https://img.shields.io/github/issues/jsdcommunity/build_Together_Freelacing-site-for-Developers_FrontEnd.svg)](https://github.com/kylelobo/The-Documentation-Compendium/issues)
-[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/jsdcommunity/build_Together_Freelacing-site-for-Developers_FrontEnd.svg)](https://github.com/kylelobo/The-Documentation-Compendium/pulls)
+[![GitHub Issues](https://img.shields.io/github/issues/jsdcommunity/build_Together_Freelacing-site-for-Developers_FrontEnd.svg)](https://github.com/jsdcommunity/build_Together_Freelacing-site-for-Developers_FrontEnd/issues)
+[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/jsdcommunity/build_Together_Freelacing-site-for-Developers_FrontEnd.svg)](https://github.com/jsdcommunity/build_Together_Freelacing-site-for-Developers_FrontEnd/pulls)
 
 </div>
 
