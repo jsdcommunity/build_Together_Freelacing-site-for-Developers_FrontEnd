@@ -93,4 +93,4 @@ npm start
 - [@ajeeshcp](https://github.com/ajeeshcp) - Contributor
 - [@fathimafarhath](https://github.com/fathimafarhath) - Contributor
 
-More details about [contributors here](https://github.com/kylelobo/The-Documentation-Compendium/contributors).
+More details about [contributors here](https://github.com/jsdcommunity/build_Together_Freelacing-site-for-Developers_FrontEnd/contributors).
