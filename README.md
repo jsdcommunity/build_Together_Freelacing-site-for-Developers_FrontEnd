@@ -55,7 +55,7 @@ apt install nodejs
 ```
 apt install npm
 ```
-3. Yarn
+4. Yarn
 
 ```
 npm install --global yarn
