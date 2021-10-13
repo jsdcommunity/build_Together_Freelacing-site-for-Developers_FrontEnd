@@ -55,6 +55,11 @@ apt install nodejs
 ```
 apt install npm
 ```
+4. Yarn
+
+```
+npm install --global yarn
+```
 
 ### Installing and running on development mode
 
@@ -71,13 +76,13 @@ Then go to this project directory by running command `cd build_Together_Freelaci
 Install required packages
 
 ```
-npm install
+yarn install
 ```
 
 Start the react development server
 
 ```
-npm start
+yarn start
 ```
 
 ## ⛏️ Built Using <a name = "built_using"></a>
