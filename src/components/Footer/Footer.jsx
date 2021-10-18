@@ -4,8 +4,13 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { Link as RouterLink } from "react-router-dom";
 import { Box } from "@mui/system";
-import { Button, ButtonGroup, Divider, Link, TextField } from "@mui/material";
+import { Button, ButtonGroup, Divider, IconButton, Link, TextField } from "@mui/material";
 import Links from "../Links/Links";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import TwitterIcon from "@mui/icons-material/Twitter";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import InstagramIcon from "@mui/icons-material/Instagram";
 
 const FooterHero = () => (
   <Grid item xs={12} md={3}>
@@ -31,7 +36,7 @@ const FooterHero = () => (
           inputMode="email"
           fullWidth
         />
-        <Button size="small" variant="contained" tabIndex={0} sx={{ textTransform: "none" }}>
+        <Button sx={{ textTransform: "none" }} size="small" variant="contained" tabIndex={0}>
           Subscribe
         </Button>
       </ButtonGroup>
@@ -71,19 +76,53 @@ const FooterLinks = () => (
 );
 
 const FooterBottom = () => (
-  <Typography
-    sx={{ mt: 3 }}
-    className="text-center w-100"
-    variant="body2"
-    color="text.secondary"
+  <Grid
+    sx={{ width: "100%" }}
+    display="flex"
+    justifyContent="space-between"
+    flexDirection="row"
+    container
   >
-    {"Copyright © "}
-    <Link component={RouterLink} color="inherit" to="/">
-      UpBit
-    </Link>{" "}
-    {new Date().getFullYear()}
-    {"."}
-  </Typography>
+    <Grid
+      item
+      xs={12}
+      md={6}
+      justifyContent={{ xs: "center", md: "flex-start" }}
+      display="flex"
+    >
+      <Typography sx={{ mt: 3 }} variant="body2" color="text.secondary">
+        {"Copyright © "}
+        <Link className="link" component={RouterLink} color="inherit" to="/">
+          UpBit
+        </Link>{" "}
+        {new Date().getFullYear()}
+        {"."}
+      </Typography>
+    </Grid>
+    <Grid
+      item
+      xs={12}
+      md={6}
+      justifyContent={{ xs: "space-around", md: "flex-end" }}
+      display="flex"
+    >
+      <IconButton>
+        <GitHubIcon className="link" />
+      </IconButton>
+      <IconButton>
+        <LinkedInIcon className="link" />
+      </IconButton>
+      <IconButton>
+        <InstagramIcon className="link" />
+      </IconButton>
+      <IconButton>
+        <FacebookIcon className="link" />
+      </IconButton>
+      <IconButton>
+        <TwitterIcon className="link" />
+      </IconButton>
+    </Grid>
+  </Grid>
 );
 
 function Footer(props) {
@@ -97,7 +136,9 @@ function Footer(props) {
     >
       <FooterHero />
       <FooterLinks />
-      <Divider className="footer-divider" />
+      <Grid item xs={12} display="flex" alignItems="center" justifyContent="center">
+        <Divider sx={{ width: "100%" }} />
+      </Grid>
       <FooterBottom />
     </Grid>
   );

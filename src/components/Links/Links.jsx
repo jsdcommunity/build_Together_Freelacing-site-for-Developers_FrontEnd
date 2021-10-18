@@ -18,6 +18,7 @@ function Links({ title, links = [] }) {
             variant="subtitle2"
             key={key}
             color="inherit"
+            className="link"
           >
             {txt}
           </Link>
