@@ -1,11 +1,11 @@
 import React from "react";
 import Footer from "../components/Footer/Footer";
-import LogoCard from "../components/LogoCard/LogoCard";
+import Header from "../components/Header/Header";
 
 function Home(props) {
   return (
     <div className="home">
-      <LogoCard />
+      <Header />
       <Footer />
     </div>
   );
