@@ -7,6 +7,8 @@ import IconButton from "@mui/material/IconButton";
 import "./Header.css";
 import SearchBar from "../SearchBar/SearchBar";
 import { Grid } from "@mui/material";
+import LightModeIcon from "@mui/icons-material/LightMode";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
 
 function Header(props) {
   return (
@@ -31,32 +33,45 @@ function Header(props) {
               </IconButton>
             </Box>
             <SearchBar />
-            <Box display="flex" flexDirection="row">
-              <Box display={{ xs: "none", sm: "flex" }}>
-                <Button
-                  sx={{ ml: 1, textTransform: "none", width: "max-content" }}
-                  color="inherit"
-                  variant="text"
-                >
-                  Explore
-                </Button>
-                <Button
-                  sx={{ ml: 1, textTransform: "none", width: "max-content" }}
-                  color="inherit"
-                  variant="text"
-                >
-                  Log in
-                </Button>
-              </Box>
-              <Box>
-                <Button
-                  sx={{ ml: 1, textTransform: "none", width: "max-content" }}
-                  color="success"
-                  variant="contained"
-                >
-                  Sign up
-                </Button>
-              </Box>
+            <Box
+              display={{ xs: "none", sm: "flex" }}
+              flexDirection="row"
+              className="right-part"
+              justifyContent="space-between"
+            >
+              <Button
+                sx={{ ml: 1, textTransform: "none", width: "max-content" }}
+                variant="contained"
+                color="info"
+              >
+                Explore
+              </Button>
+              <Button
+                sx={{ ml: 1, textTransform: "none", width: "max-content" }}
+                variant="contained"
+                color="info"
+              >
+                Log in
+              </Button>
+              <Button
+                sx={{ ml: 1, textTransform: "none", width: "max-content" }}
+                variant="contained"
+                color="success"
+              >
+                Sign up
+              </Button>
+              <Button variant="contained" color="info">
+                <DarkModeIcon />
+              </Button>
+            </Box>
+            <Box
+              display={{ xs: "flex", sm: "none" }}
+              className="right-part"
+              justifyContent="space-between"
+            >
+              <Button sx={{ ml: 1 }} variant="contained" color="info">
+                <DarkModeIcon />
+              </Button>
             </Box>
           </Grid>
         </Toolbar>
