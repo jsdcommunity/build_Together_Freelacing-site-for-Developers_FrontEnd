@@ -7,10 +7,15 @@ import IconButton from "@mui/material/IconButton";
 import "./Header.css";
 import SearchBar from "../SearchBar/SearchBar";
 import { Grid } from "@mui/material";
+import { applyDarkMode, applyLightMode, toggleDarkMode } from "../../redux/actions/darkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
+import { useSelector, useDispatch } from "react-redux";
 
 function Header(props) {
+  const darkMode = useSelector(state => state.darkMode);
+  const dispatch = useDispatch();
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar enableColorOnDark position="static">
@@ -60,8 +65,12 @@ function Header(props) {
               >
                 Sign up
               </Button>
-              <Button variant="contained" color="info">
-                <DarkModeIcon />
+              <Button
+                onClick={() => dispatch(toggleDarkMode())}
+                variant="contained"
+                color="info"
+              >
+                {darkMode ? <LightModeIcon /> : <DarkModeIcon />}
               </Button>
             </Box>
             <Box
@@ -69,8 +78,13 @@ function Header(props) {
               className="right-part"
               justifyContent="space-between"
             >
-              <Button sx={{ ml: 1 }} variant="contained" color="info">
-                <DarkModeIcon />
+              <Button
+                onClick={() => dispatch(toggleDarkMode())}
+                sx={{ ml: 1 }}
+                variant="contained"
+                color="info"
+              >
+                {darkMode ? <LightModeIcon /> : <DarkModeIcon />}
               </Button>
             </Box>
           </Grid>
