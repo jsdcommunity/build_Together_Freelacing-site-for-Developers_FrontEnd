@@ -16,7 +16,7 @@ const FooterHero = () => (
   <Grid item xs={12} md={3}>
     <Box>
       <img width="32" src="logo.png" alt="UpBit" />
-      <Typography sx={{ mt: 1 }} color="black" variant="subtitle1">
+      <Typography sx={{ mt: 1 }} color="GrayText" variant="subtitle1">
         <strong>Join our newsletter!</strong>
       </Typography>
       <Typography color="GrayText" variant="subtitle2" gutterBottom>

@@ -7,7 +7,7 @@ import IconButton from "@mui/material/IconButton";
 import "./Header.css";
 import SearchBar from "../SearchBar/SearchBar";
 import { Grid } from "@mui/material";
-import { applyDarkMode, applyLightMode, toggleDarkMode } from "../../redux/actions/darkMode";
+import { toggleDarkMode } from "../../redux/actions/darkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import { useSelector, useDispatch } from "react-redux";
@@ -18,7 +18,7 @@ function Header(props) {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar enableColorOnDark position="static">
+      <AppBar position="static">
         <Toolbar>
           <Grid
             sx={{ width: "100%" }}

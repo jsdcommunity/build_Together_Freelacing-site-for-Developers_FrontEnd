@@ -1,4 +1,6 @@
-const darkModeReducer = (state = false, action) => {
+const browserMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+const darkModeReducer = (state = browserMode, action) => {
   switch (action.type) {
     case "DARK_MODE":
       return true;
