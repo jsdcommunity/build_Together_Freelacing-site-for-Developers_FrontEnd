@@ -35,8 +35,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "prettier": "yarn prettier --write .",
-    "check-prettier": "npx prettier --check ."
+    "format-code": "yarn prettier --write .",
+    "check-format": "npx prettier --check ."
   },
   "eslintConfig": {
     "extends": [
