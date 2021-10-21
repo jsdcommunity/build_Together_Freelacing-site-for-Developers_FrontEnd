@@ -16,6 +16,8 @@ function Header(props) {
   const darkMode = useSelector(state => state.darkMode);
   const dispatch = useDispatch();
 
+  const btnSxConfig = { ml: 1, textTransform: "none", width: "max-content" };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -45,21 +47,21 @@ function Header(props) {
               justifyContent="space-between"
             >
               <Button
-                sx={{ ml: 1, textTransform: "none", width: "max-content" }}
+                sx={btnSxConfig}
                 variant="contained"
                 color="info"
               >
                 Explore
               </Button>
               <Button
-                sx={{ ml: 1, textTransform: "none", width: "max-content" }}
+                sx={btnSxConfig}
                 variant="contained"
                 color="info"
               >
                 Log in
               </Button>
               <Button
-                sx={{ ml: 1, textTransform: "none", width: "max-content" }}
+                sx={btnSxConfig}
                 variant="contained"
                 color="success"
               >
@@ -69,6 +71,7 @@ function Header(props) {
                 onClick={() => dispatch(toggleDarkMode())}
                 variant="contained"
                 color="info"
+                sx={btnSxConfig}
               >
                 {darkMode ? <LightModeIcon /> : <DarkModeIcon />}
               </Button>
