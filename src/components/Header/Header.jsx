@@ -16,7 +16,7 @@ function Header(props) {
   const darkMode = useSelector(state => state.darkMode);
   const dispatch = useDispatch();
 
-  const btnSxConfig = { ml: 1, textTransform: "none", width: "max-content" };
+  const btnSxConfig = { ml: 1, textTransform: "none", whiteSpace:"nowrap"  };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
