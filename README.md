@@ -21,10 +21,10 @@
 
 ## 📝 Table of Contents
 
-- [About](#about)
-- [Getting Started](#getting_started)
-- [Built Using](#built_using)
-- [Authors](#authors)
+-  [About](#about)
+-  [Getting Started](#getting_started)
+-  [Built Using](#built_using)
+-  [Authors](#authors)
 
 ## 🧐 About <a name = "about"></a>
 
@@ -55,6 +55,7 @@ apt install nodejs
 ```
 apt install npm
 ```
+
 4. Yarn
 
 ```
@@ -87,15 +88,15 @@ yarn start
 
 ## ⛏️ Built Using <a name = "built_using"></a>
 
-- [React](https://reactjs.org/) - A JavaScript library for building user interfaces
-- [Redux](https://redux.js.org/) - A Predictable State Container for JS Apps
-- [Material UI](https://mui.com/) - A popular React UI library
+-  [React](https://reactjs.org/) - A JavaScript library for building user interfaces
+-  [Redux](https://redux.js.org/) - A Predictable State Container for JS Apps
+-  [Material UI](https://mui.com/) - A popular React UI library
 
 ## ✍️ Authors <a name = "authors"></a>
 
-- [@Muhammed-Rahif](https://github.com/Muhammed-Rahif) - Contributor
-- [@shamilkotta](https://github.com/shamilkotta) - Contributor
-- [@ajeeshcp](https://github.com/ajeeshcp) - Contributor
-- [@fathimafarhath](https://github.com/fathimafarhath) - Contributor
+-  [@Muhammed-Rahif](https://github.com/Muhammed-Rahif) - Contributor
+-  [@shamilkotta](https://github.com/shamilkotta) - Contributor
+-  [@ajeeshcp](https://github.com/ajeeshcp) - Contributor
+-  [@fathimafarhath](https://github.com/fathimafarhath) - Contributor
 
 More details about [contributors here](https://github.com/jsdcommunity/build_Together_Freelacing-site-for-Developers_FrontEnd/contributors).
