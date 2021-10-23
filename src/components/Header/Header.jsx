@@ -16,7 +16,7 @@ import { useHistory } from "react-router";
 function Header(props) {
    const darkMode = useSelector((state) => state.darkMode);
    const dispatch = useDispatch();
-   const history = useHistory()
+   const history = useHistory();
    const btnSxConfig = { ml: 1, textTransform: "none", whiteSpace: "nowrap" };
 
    return (
@@ -50,7 +50,12 @@ function Header(props) {
                      <Button sx={btnSxConfig} variant="contained" color="info">
                         Explore
                      </Button>
-                     <Button sx={btnSxConfig} variant="contained" color="info" onClick={() => history.push("/login")}>
+                     <Button
+                        sx={btnSxConfig}
+                        variant="contained"
+                        color="info"
+                        onClick={() => history.push("/login")}
+                     >
                         Log in
                      </Button>
                      <Button

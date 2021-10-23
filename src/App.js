@@ -5,10 +5,9 @@ import Home from "./pages/Home";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { useSelector } from "react-redux";
 import { CssBaseline } from "@mui/material";
-import Login from "./pages/Login"
+import Login from "./pages/Login";
 
 function App() {
-
    const darkMode = useSelector((state) => state.darkMode);
 
    const theme = useMemo(
@@ -21,9 +20,7 @@ function App() {
       [darkMode]
    );
 
-   
    return (
-
       <ThemeProvider theme={theme}>
          <CssBaseline />
          <Router>
@@ -33,7 +30,6 @@ function App() {
             </Switch>
          </Router>
       </ThemeProvider>
-
    );
 }
 
