@@ -19,7 +19,7 @@ function Header(props) {
 
    const history = useHistory();
 
-   const btnSxConfig = { ml: 1, textTransform: "none", whiteSpace: "nowrap" };
+   const btnSXConfig = { ml: 1, textTransform: "none", whiteSpace: "nowrap" };
 
    return (
       <Box sx={{ flexGrow: 1 }}>
@@ -50,14 +50,14 @@ function Header(props) {
                      className="right-part"
                      justifyContent="space-between"
                   >
-                     <Button sx={btnSxConfig} variant="contained" color="info">
+                     <Button sx={btnSXConfig} variant="contained" color="info">
                         Explore
                      </Button>
-                     <Button sx={btnSxConfig} variant="contained" color="info">
+                     <Button sx={btnSXConfig} variant="contained" color="info">
                         Log in
                      </Button>
                      <Button
-                        sx={btnSxConfig}
+                        sx={btnSXConfig}
                         variant="contained"
                         color="success"
                         onClick={() => history.push("/sign-up")}
@@ -68,7 +68,7 @@ function Header(props) {
                         onClick={() => dispatch(toggleDarkMode())}
                         variant="contained"
                         color="info"
-                        sx={btnSxConfig}
+                        sx={btnSXConfig}
                      >
                         {darkMode ? <LightModeIcon /> : <DarkModeIcon />}
                      </Button>

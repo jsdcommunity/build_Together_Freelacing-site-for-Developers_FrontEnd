@@ -10,7 +10,7 @@ import {
    setPassword,
 } from "../../redux/actions/signUpSteps";
 import { useSnackbar } from "notistack";
-import { sendConfirmEmail } from "../../helpers/api";
+import { sendConfirmationEmail } from "../../helpers/api";
 
 function Step2(props) {
    const { enqueueSnackbar } = useSnackbar();
@@ -35,10 +35,10 @@ function Step2(props) {
    const passwordRef = useRef({});
    passwordRef.current = watch("password", "");
 
-   const onSubmit = data => {
-      dispatch(setEmail(data.email));
-      dispatch(setPassword(data.password));
-      sendConfirmEmail(email, password, userType)
+   const onSubmit = async data => {
+      const { payload: email } = await dispatch(setEmail(data.email));
+      const { payload: password } = await dispatch(setPassword(data.password));
+      sendConfirmationEmail(email, password, userType)
          .then(resData =>
             enqueueSnackbar(resData.message, { variant: "success" })
          )

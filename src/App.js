@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { CssBaseline } from "@mui/material";
 import SignUp from "./pages/SignUp";
 import { SnackbarProvider } from "notistack";
+import ConfirmAccount from "./pages/ConfirmAccount";
 
 function App() {
    const darkMode = useSelector(state => state.darkMode);
@@ -29,6 +30,7 @@ function App() {
                <Switch>
                   <Route exact path="/" component={Home} />
                   <Route path="/sign-up" component={SignUp} />
+                  <Route path="/confirm-account" component={ConfirmAccount} />
                </Switch>
             </Router>
          </SnackbarProvider>

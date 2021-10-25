@@ -1,14 +1,18 @@
-const nextStep = () => ({ type: "NEXT_STEP" });
+const nextStep = () => Promise.resolve({ type: "NEXT_STEP" });
 
-const backStep = () => ({ type: "BACK_STEP" });
+const backStep = () => Promise.resolve({ type: "BACK_STEP" });
 
-const setActiveStep = stepIndx => ({ type: "BACK_STEP", payload: stepIndx });
+const setActiveStep = stepIndx =>
+   Promise.resolve({ type: "BACK_STEP", payload: stepIndx });
 
-const setEmail = email => ({ type: "SET_EMAIL", payload: email });
+const setEmail = email =>
+   Promise.resolve({ type: "SET_EMAIL", payload: email });
 
-const setPassword = password => ({ type: "SET_PASSWORD", payload: password });
+const setPassword = password =>
+   Promise.resolve({ type: "SET_PASSWORD", payload: password });
 
-const setUserType = userType => ({ type: "SET_USER_TYPE", payload: userType });
+const setUserType = userType =>
+   Promise.resolve({ type: "SET_USER_TYPE", payload: userType });
 
 export {
    nextStep,
