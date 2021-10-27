@@ -38,12 +38,17 @@ function Step2(props) {
    const onSubmit = async data => {
       const { payload: email } = await dispatch(setEmail(data.email));
       const { payload: password } = await dispatch(setPassword(data.password));
+      enqueueSnackbar(
+         `Sending confirmation email to ${email}, please wait a bit...`,
+         {
+            variant: "info",
+         }
+      );
       sendConfirmationEmail(email, password, userType)
-         .then(resData =>
-            enqueueSnackbar(resData.message, { variant: "success" })
-         )
+         .then(resData => {
+            enqueueSnackbar(resData.message, { variant: "success" });
+         })
          .catch(err => {
-            console.log(err);
             enqueueSnackbar(err.message, { variant: "error" });
          });
    };
@@ -93,8 +98,8 @@ function Step2(props) {
                         message: "Minimum 3 letters needed.",
                      },
                      maxLength: {
-                        value: 30,
-                        message: "Maximum length is restricted to 30 letters.",
+                        value: 254,
+                        message: "Maximum length is restricted to 254 letters.",
                      },
                      pattern: {
                         value: EMAIL_REGEX,
@@ -165,8 +170,12 @@ function Step2(props) {
                Back
             </Button>
             <Box sx={{ flex: "1 1 auto" }} />
-            <Button onClick={handleSubmit(onSubmit)} variant="contained">
-               {activeStep === 4 ? "Finish" : "Next"}
+            <Button
+               color="success"
+               onClick={handleSubmit(onSubmit)}
+               variant="contained"
+            >
+               Send confirmation email
             </Button>
          </Box>
       </>

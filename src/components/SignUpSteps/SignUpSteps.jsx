@@ -1,7 +1,7 @@
 import { Divider, Step, StepLabel, Stepper, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 import Step1 from "./Step1";
 import Step2 from "./Step2";
 import Step3 from "./Step3";
@@ -13,11 +13,7 @@ const steps = [
 ];
 
 function SignUpSteps(props) {
-   const dispatch = useDispatch();
-
-   const { activeStep, userType, password, email } = useSelector(
-      state => state.signUpSteps
-   );
+   const { activeStep } = useSelector(state => state.signUpSteps);
 
    const RenderStep = ({ activeStep }) => {
       switch (activeStep) {
@@ -31,10 +27,6 @@ function SignUpSteps(props) {
             return null;
       }
    };
-
-   useEffect(() => {
-      console.log({ activeStep, userType, password, email });
-   }, [activeStep, userType, password, email]);
 
    return (
       <Box

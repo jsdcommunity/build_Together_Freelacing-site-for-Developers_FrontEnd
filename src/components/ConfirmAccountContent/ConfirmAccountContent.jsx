@@ -1,11 +1,11 @@
 import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
-import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
-import { CircularProgress, Paper, Typography } from "@mui/material";
+import { CircularProgress, Typography, Link } from "@mui/material";
 import { confirmAccount } from "../../helpers/api";
 import { useSnackbar } from "notistack";
-import ErrorIcon from "@mui/icons-material/Error";
 import { saveUserAuth } from "../../helpers";
+import { Link as RouterLink } from "react-router-dom";
+import "./ConfirmAccountContent.css";
 
 function ConfirmAccountContent(props) {
    const [status, setStatus] = useState("loading");
@@ -31,7 +31,82 @@ function ConfirmAccountContent(props) {
          });
    }, []);
 
-   const iconSXProp = { fontSize: "6rem", mb: 2 };
+   const RenderIntructions = ({ message }) => {
+      switch (message) {
+         case "Email already confirmed!":
+            return (
+               <ul>
+                  <li>This email is already confirmed.</li>
+                  <li>
+                     You can do{" "}
+                     <Link to="/login" component={RouterLink}>
+                        login
+                     </Link>{" "}
+                     now!
+                  </li>
+                  <li>
+                     If all the above instructions are wrong, check entered
+                     email
+                  </li>
+               </ul>
+            );
+         case "Link expired!":
+            return (
+               <ul>
+                  <li>
+                     This confimation link is expired ( Confirmation links will
+                     expire after 15 minutes )
+                  </li>
+                  <li>
+                     Please{" "}
+                     <Link to="/sign-up" component={RouterLink}>
+                        sign up
+                     </Link>{" "}
+                     again with this email, and get new confirmation link
+                  </li>
+                  <li>
+                     And remember, next time you get the link, please confirm
+                     the account before the link expires.
+                  </li>
+               </ul>
+            );
+         case "Invalid token!":
+            return (
+               <ul>
+                  <li>
+                     Please use the correct confirmation link that we sed you in
+                     your email address
+                  </li>
+                  <li>Check the link, verify it's not broken.</li>
+                  <li>
+                     Is the above instructions are't working, please sign up
+                     again and get your new confirmation link!
+                  </li>
+               </ul>
+            );
+         case "Email confirmed successfully!":
+            return (
+               <ul>
+                  <li>
+                     You will be redirected to{" "}
+                     <Link to="/sign-up" component={RouterLink}>
+                        sign up
+                     </Link>{" "}
+                     step two now, please wait...
+                  </li>
+                  <li>
+                     If not redirecting, try to go manually to{" "}
+                     <Link to="/sign-up" component={RouterLink}>
+                        sign up
+                     </Link>{" "}
+                     page.
+                  </li>
+               </ul>
+            );
+         default:
+            return null;
+      }
+   };
 
    return (
       <Box
@@ -50,10 +125,10 @@ function ConfirmAccountContent(props) {
             }}
          >
             {status === "success" && (
-               <CheckCircleRoundedIcon color="success" sx={iconSXProp} />
+               <img src="svg/success-mail.svg" alt="success" className="svg" />
             )}
             {status === "failure" && (
-               <ErrorIcon color="error" sx={iconSXProp} />
+               <img className="svg" src="svg/cancel.svg" alt="failure" />
             )}
             {status === "loading" && (
                <CircularProgress size="4rem" sx={{ mb: 2 }} />
@@ -61,6 +136,12 @@ function ConfirmAccountContent(props) {
             <Typography variant="h5">
                <strong>{message}</strong>
             </Typography>
+            <Box
+               maxWidth={{ xs: "100%", sm: "65%" }}
+               sx={{ textAlign: "left", pt: 1 }}
+            >
+               <RenderIntructions message={message} />
+            </Box>
          </Box>
       </Box>
    );
