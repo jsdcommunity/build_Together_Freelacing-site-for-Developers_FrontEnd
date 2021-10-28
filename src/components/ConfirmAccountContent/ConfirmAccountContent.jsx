@@ -133,11 +133,11 @@ function ConfirmAccountContent(props) {
             {status === "loading" && (
                <CircularProgress size="4rem" sx={{ mb: 2 }} />
             )}
-            <Typography variant="h5">
+            <Typography variant="h6">
                <strong>{message}</strong>
             </Typography>
             <Box
-               maxWidth={{ xs: "100%", sm: "65%" }}
+               maxWidth={{ xs: "100%", sm: "100%" }}
                sx={{ textAlign: "left", pt: 1 }}
             >
                <RenderIntructions message={message} />
