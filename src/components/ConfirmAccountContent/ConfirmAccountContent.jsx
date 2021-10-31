@@ -32,12 +32,10 @@ function ConfirmAccountContent(props) {
       confirmAccount(token)
          .then(resData => {
             const userToken = resData.token;
-            const { userType, password, email } = JWT.decode(userToken);
+            const { userType, active, _id: userId } = JWT.decode(userToken);
 
             saveUserAuth(userToken);
             dispatch(setUserType(userType));
-            dispatch(setEmail(email));
-            dispatch(setPassword(password));
             dispatch(setActiveStep(2));
 
             setStatus("success");

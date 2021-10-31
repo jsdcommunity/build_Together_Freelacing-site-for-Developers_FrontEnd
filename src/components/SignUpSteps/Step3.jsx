@@ -1,96 +1,11 @@
-import { Button, Chip, Grid, TextField, Typography } from "@mui/material";
+import { Button, Grid, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { backStep, nextStep } from "../../redux/actions/signUpSteps";
 import { HTTP_LINK_REGEX } from "../../utils/constants";
-
-const DynamicInput = ({ name, inputMinLength = 3, inputMaxLength }) => {
-   const [fields, setFields] = useState([]);
-
-   const {
-      register,
-      handleSubmit,
-      formState: { errors },
-      watch,
-   } = useForm({
-      mode: "onChange",
-   });
-
-   const valueRef = useRef({});
-   valueRef.current = watch("value");
-
-   const handleAddClick = data => {
-      setFields(fields => [...fields, data.value]);
-      valueRef.current = "";
-   };
-
-   const removeField = indx =>
-      setFields(fields => fields.filter((field, key) => key !== indx));
-
-   return (
-      <Box
-         sx={{
-            border: "1px solid grey",
-            borderRadius: "4px",
-            p: 1,
-            ":hover": {
-               border: "1px solid white",
-            },
-         }}
-         component="fieldset"
-      >
-         <legend>{name}</legend>
-         <Box sx={{ mb: 1 }}>
-            {fields.map((field, key) => (
-               <Chip
-                  sx={{ m: 0.5 }}
-                  label={field}
-                  variant="outlined"
-                  onDelete={() => removeField(key)}
-                  key={key}
-               />
-            ))}
-         </Box>
-         <Box>
-            <TextField
-               size="small"
-               fullWidth
-               {...register("value", {
-                  required: false,
-                  minLength: inputMinLength && {
-                     value: inputMinLength,
-                     message: `Minimum ${inputMinLength} letters needed.`,
-                  },
-                  maxLength: {
-                     value: inputMaxLength,
-                     message: `Maximum length is restricted to ${inputMaxLength} letters.`,
-                  },
-                  pattern: {
-                     value: HTTP_LINK_REGEX,
-                     message: "Invalid link.",
-                  },
-               })}
-               error={Boolean(errors.value)}
-               helperText={errors.value && errors.value.message}
-               InputProps={{
-                  endAdornment: (
-                     <Button
-                        onClick={handleSubmit(handleAddClick)}
-                        sx={{ textTransform: "none" }}
-                        variant="contained"
-                     >
-                        Add
-                     </Button>
-                  ),
-                  sx: { pr: "2px" },
-               }}
-            />
-         </Box>
-      </Box>
-   );
-};
+import MultiItemInput from "../MultiItemInput/MultiItemInput";
 
 function Step3(props) {
    const dispatch = useDispatch();
@@ -246,10 +161,15 @@ function Step3(props) {
                   error={Boolean(errors.mobNum)}
                   helperText={errors.mobNum && errors.mobNum.message}
                />
-               <DynamicInput
+               <MultiItemInput
                   name="Social media links"
-                  inputMinLength={8}
+                  inputMinLength={5}
                   inputMaxLength={null}
+                  pattern={{
+                     value: HTTP_LINK_REGEX,
+                     message: "Invalid link.",
+                  }}
+                  sx={{ mb: 2 }}
                />
             </Grid>
          </Box>
