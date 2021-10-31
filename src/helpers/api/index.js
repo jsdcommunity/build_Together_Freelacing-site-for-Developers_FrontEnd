@@ -1,4 +1,4 @@
-import { axiosInstance as axios } from "./config";
+import { axiosInstance as axios } from "../../config/api";
 
 const sendConfirmationEmail = (email, password, userType) =>
    new Promise((resolve, reject) => {
