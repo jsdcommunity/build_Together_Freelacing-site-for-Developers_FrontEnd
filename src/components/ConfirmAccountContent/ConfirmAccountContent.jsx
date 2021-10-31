@@ -6,8 +6,20 @@ import { useSnackbar } from "notistack";
 import { saveUserAuth } from "../../helpers";
 import { Link as RouterLink } from "react-router-dom";
 import "./ConfirmAccountContent.css";
+import { useDispatch } from "react-redux";
+import {
+   setActiveStep,
+   setEmail,
+   setPassword,
+   setUserType,
+} from "../../redux/actions/signUpSteps";
+import { useHistory } from "react-router-dom";
+import JWT from "jsonwebtoken";
 
 function ConfirmAccountContent(props) {
+   const history = useHistory();
+   const dispatch = useDispatch();
+
    const [status, setStatus] = useState("loading");
    const [message, setMessage] = useState("Processing the token...");
 
@@ -19,10 +31,19 @@ function ConfirmAccountContent(props) {
       let token = params.get("token");
       confirmAccount(token)
          .then(resData => {
-            saveUserAuth(resData.token);
+            const userToken = resData.token;
+            const { userType, password, email } = JWT.decode(userToken);
+
+            saveUserAuth(userToken);
+            dispatch(setUserType(userType));
+            dispatch(setEmail(email));
+            dispatch(setPassword(password));
+            dispatch(setActiveStep(2));
+
             setStatus("success");
             setMessage(resData.message);
             enqueueSnackbar(resData.message, { variant: "success" });
+            setTimeout(() => history.push("/sign-up"), 4000);
          })
          .catch(err => {
             setStatus("failure");
@@ -45,7 +66,7 @@ function ConfirmAccountContent(props) {
                      now!
                   </li>
                   <li>
-                     If all the above instructions are wrong, check entered
+                     If all the above instructions are wrong, check the entered
                      email
                   </li>
                </ul>

@@ -32,6 +32,7 @@ function Step2(props) {
       },
       mode: "onChange",
    });
+
    const passwordRef = useRef({});
    passwordRef.current = watch("password", "");
 

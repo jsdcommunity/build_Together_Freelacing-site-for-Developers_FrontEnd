@@ -3,7 +3,7 @@ const nextStep = () => Promise.resolve({ type: "NEXT_STEP" });
 const backStep = () => Promise.resolve({ type: "BACK_STEP" });
 
 const setActiveStep = stepIndx =>
-   Promise.resolve({ type: "BACK_STEP", payload: stepIndx });
+   Promise.resolve({ type: "SET_STEP", payload: stepIndx });
 
 const setEmail = email =>
    Promise.resolve({ type: "SET_EMAIL", payload: email });
