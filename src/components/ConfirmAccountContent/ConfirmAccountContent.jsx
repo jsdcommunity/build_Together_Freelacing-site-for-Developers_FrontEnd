@@ -1,7 +1,7 @@
 import { Box } from "@mui/system";
 import React, { useEffect, useState } from "react";
 import { CircularProgress, Typography, Link } from "@mui/material";
-import { confirmAccount } from "../../helpers/api";
+import { confirmAccount, getUserData } from "../../helpers/api";
 import { useSnackbar } from "notistack";
 import { saveUserAuth } from "../../helpers";
 import { Link as RouterLink } from "react-router-dom";
@@ -10,7 +10,6 @@ import { useDispatch } from "react-redux";
 import {
    setActiveStep,
    setEmail,
-   setPassword,
    setUserType,
 } from "../../redux/actions/signUpSteps";
 import { useHistory } from "react-router-dom";
@@ -32,11 +31,15 @@ function ConfirmAccountContent(props) {
       confirmAccount(token)
          .then(resData => {
             const userToken = resData.token;
-            const { userType, active, _id: userId } = JWT.decode(userToken);
+            const { userType, active, userId } = JWT.decode(userToken);
 
             saveUserAuth(userToken);
-            dispatch(setUserType(userType));
-            dispatch(setActiveStep(2));
+            getUserData(userId).then(response => {
+               const userData = response.user;
+               dispatch(setUserType(userData.userType));
+               dispatch(setEmail(userData.email));
+               dispatch(setActiveStep(2));
+            });
 
             setStatus("success");
             setMessage(resData.message);

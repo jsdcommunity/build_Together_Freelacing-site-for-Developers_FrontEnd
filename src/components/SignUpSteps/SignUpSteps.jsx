@@ -1,10 +1,11 @@
-import { Divider, Step, StepLabel, Stepper, Typography } from "@mui/material";
+import { Divider, Step, StepLabel, Stepper } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
 import { useSelector } from "react-redux";
 import Step1 from "./Step1";
 import Step2 from "./Step2";
 import Step3 from "./Step3";
+import Finish from "./Finish";
 
 const steps = [
    "Choose your user type",
@@ -52,14 +53,7 @@ function SignUpSteps(props) {
          <Divider sx={{ mt: 2 }} />
 
          {activeStep === steps.length ? (
-            <React.Fragment>
-               <Typography sx={{ mt: 2, mb: 1 }}>
-                  All steps completed - you&apos;re finished
-               </Typography>
-               <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-                  <Box sx={{ flex: "1 1 auto" }} />
-               </Box>
-            </React.Fragment>
+            <Finish />
          ) : (
             <RenderStep activeStep={activeStep} />
          )}

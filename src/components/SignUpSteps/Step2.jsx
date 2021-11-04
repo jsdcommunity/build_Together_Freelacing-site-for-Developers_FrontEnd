@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { EMAIL_REGEX } from "../../utils/constants";
 import {
    backStep,
-   nextStep,
    setEmail,
    setPassword,
 } from "../../redux/actions/signUpSteps";

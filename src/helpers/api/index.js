@@ -1,3 +1,4 @@
+import { getUserAuth } from "..";
 import { axiosInstance as axios } from "../../config/api";
 
 const sendConfirmationEmail = (email, password, userType) =>
@@ -24,4 +25,35 @@ const confirmAccount = token =>
          .catch(err => reject(err.response.data));
    });
 
-export { sendConfirmationEmail, confirmAccount };
+const updateUserProfile = userData =>
+   new Promise((resolve, reject) => {
+      axios
+         .put("/update-user", userData, {
+            headers: { Authorization: getUserAuth() },
+         })
+         .then(response => {
+            const resData = response.data;
+            if (!resData.success) reject(resData);
+            else resolve(resData);
+         })
+         .catch(err => reject(err.response.data));
+   });
+
+const getUserData = userId =>
+   new Promise((resolve, reject) => {
+      axios
+         .get("/get-user/" + userId)
+         .then(response => {
+            const resData = response.data;
+            if (!resData.success) reject(resData);
+            else resolve(resData);
+         })
+         .catch(err => reject(err.response.data));
+   });
+
+export {
+   sendConfirmationEmail,
+   confirmAccount,
+   updateUserProfile,
+   getUserData,
+};

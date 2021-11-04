@@ -1,18 +1,22 @@
 import { Button, Chip, TextField } from "@mui/material";
 import { Box } from "@mui/system";
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import AddIcon from "@mui/icons-material/Add";
 import "./MultiItemInput.css";
 
 function MultiItemInput({
-   name,
+   title,
    inputMinLength = 3,
    inputMaxLength,
    pattern = null,
    sx = {},
+   onItemsUpdate = newItems => null,
+   error = null,
+   helperText = null,
+   placeholder = "",
 }) {
-   const [fields, setFields] = useState([]);
+   const [items, setItems] = useState([]);
 
    const {
       register,
@@ -28,12 +32,16 @@ function MultiItemInput({
    valueRef.current = watch("value");
 
    const handleAddClick = data => {
-      setFields(fields => [...fields, data.value]);
+      setItems(items => [...items, data.value]);
       setValue("value", "");
    };
 
    const removeField = indx =>
-      setFields(fields => fields.filter((field, key) => key !== indx));
+      setItems(items => items.filter((field, key) => key !== indx));
+
+   useEffect(() => {
+      onItemsUpdate(items);
+   }, [items]);
 
    return (
       <Box
@@ -43,14 +51,16 @@ function MultiItemInput({
             p: 1,
             ":hover": {
                border: "1px solid white",
+               borderColor: error ? "red" : "white",
             },
+            borderColor: error ? "red" : "grey",
             ...sx,
          }}
          component="fieldset"
       >
-         <legend>{name}</legend>
+         <legend>{title}</legend>
          <Box sx={{ mb: 1 }}>
-            {fields.map((field, key) => (
+            {items.map((field, key) => (
                <Chip
                   sx={{ m: 0.5 }}
                   label={field}
@@ -77,8 +87,8 @@ function MultiItemInput({
                   pattern: pattern || undefined,
                })}
                value={valueRef.current}
-               error={Boolean(errors.value)}
-               helperText={errors.value && errors.value.message}
+               error={Boolean(errors.value) || error}
+               helperText={(errors.value && errors.value.message) || helperText}
                InputProps={{
                   endAdornment: (
                      <Button
@@ -91,6 +101,7 @@ function MultiItemInput({
                   ),
                   sx: { pr: "2px" },
                }}
+               placeholder={placeholder}
             />
          </Box>
       </Box>

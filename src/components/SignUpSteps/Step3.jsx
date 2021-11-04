@@ -1,21 +1,46 @@
-import { Button, Grid, TextField, Typography } from "@mui/material";
+import {
+   Button,
+   CircularProgress,
+   Grid,
+   TextField,
+   Typography,
+} from "@mui/material";
 import { Box } from "@mui/system";
-import React, { useRef } from "react";
+import { useSnackbar } from "notistack";
+import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
+import { saveUserAuth } from "../../helpers";
+import { updateUserProfile } from "../../helpers/api";
 import { backStep, nextStep } from "../../redux/actions/signUpSteps";
 import { HTTP_LINK_REGEX } from "../../utils/constants";
 import MultiItemInput from "../MultiItemInput/MultiItemInput";
 
 function Step3(props) {
+   const [uploading, setUploading] = useState(false);
+
    const dispatch = useDispatch();
 
-   const { activeStep, password, email } = useSelector(
+   const { activeStep, password, email, userType } = useSelector(
       state => state.signUpSteps
    );
 
-   const onSubmit = () => {
-      dispatch(nextStep());
+   const { enqueueSnackbar } = useSnackbar();
+
+   const onSubmit = data => {
+      if (uploading) return null;
+      setUploading(true);
+      updateUserProfile(data)
+         .then(response => {
+            saveUserAuth(response.token);
+            setUploading(false);
+            enqueueSnackbar(response.message, { variant: "success" });
+            dispatch(nextStep());
+         })
+         .catch(err => {
+            setUploading(false);
+            enqueueSnackbar(err.message, { variant: "error" });
+         });
    };
 
    const handleBack = () => {
@@ -27,16 +52,66 @@ function Step3(props) {
       handleSubmit,
       formState: { errors },
       watch,
+      setValue,
    } = useForm({
       defaultValues: {
          email: email || "",
          password: password || "",
       },
-      mode: "onChange",
+      mode: "all",
    });
 
    const fullNameRef = useRef({});
    fullNameRef.current = watch("fullName", "");
+
+   const isUserDeveloper = userType === "developer" ? true : false;
+
+   const [socialMedias, setSocialMedias] = useState([]);
+   const [projects, setProjects] = useState([]);
+   const [skills, setSkills] = useState([]);
+   const [experience, setExperience] = useState([]);
+
+   useEffect(() => {
+      register("socialMedias", {
+         max: {
+            value: 15,
+            message: "Maximum 15 links allowed!",
+         },
+      });
+      register("projects", {
+         required: isUserDeveloper && {
+            value: isUserDeveloper,
+            message: "Add atleast one item!",
+         },
+         min: {
+            value: 1,
+            message: "Add atleast one item!",
+         },
+         shouldUnregister: true,
+      });
+      register("experience", {
+         required: isUserDeveloper && {
+            value: isUserDeveloper,
+            message: "Add atleast one item!",
+         },
+         min: {
+            value: 1,
+            message: "Add atleast one item!",
+         },
+         shouldUnregister: true,
+      });
+      register("skills", {
+         required: isUserDeveloper && {
+            value: isUserDeveloper,
+            message: "Add atleast one item!",
+         },
+         min: {
+            value: 1,
+            message: "Add atleast one item!",
+         },
+         shouldUnregister: true,
+      });
+   });
 
    return (
       <>
@@ -96,6 +171,7 @@ function Step3(props) {
                   })}
                   error={Boolean(errors.fullName)}
                   helperText={errors.fullName && errors.fullName.message}
+                  placeholder="John due"
                />
                <TextField
                   label="Location"
@@ -117,6 +193,7 @@ function Step3(props) {
                   })}
                   error={Boolean(errors.location)}
                   helperText={errors.location && errors.location.message}
+                  placeholder="London, England, United Kingdom"
                />
                <TextField
                   label="Profile Description"
@@ -140,6 +217,7 @@ function Step3(props) {
                   minRows={4}
                   error={Boolean(errors.description)}
                   helperText={errors.description && errors.description.message}
+                  placeholder="Hi there! I am a some...."
                />
                <TextField
                   label="Mobile number"
@@ -160,9 +238,10 @@ function Step3(props) {
                   })}
                   error={Boolean(errors.mobNum)}
                   helperText={errors.mobNum && errors.mobNum.message}
+                  placeholder="+911234567890"
                />
                <MultiItemInput
-                  name="Social media links"
+                  title="Social media links"
                   inputMinLength={5}
                   inputMaxLength={null}
                   pattern={{
@@ -170,7 +249,66 @@ function Step3(props) {
                      message: "Invalid link.",
                   }}
                   sx={{ mb: 2 }}
+                  onItemsUpdate={newItems => {
+                     setSocialMedias(newItems);
+                     setValue("socialMedias", newItems);
+                  }}
+                  error={Boolean(errors.socialMedias)}
+                  helperText={
+                     errors.socialMedias && errors.socialMedias.message
+                  }
+                  placeholder="https://instagram.com/jsdcommunity"
                />
+               {userType === "developer" && (
+                  <MultiItemInput
+                     title="Project links *"
+                     inputMinLength={5}
+                     inputMaxLength={null}
+                     pattern={{
+                        value: HTTP_LINK_REGEX,
+                        message: "Invalid link.",
+                     }}
+                     sx={{ mb: 2 }}
+                     onItemsUpdate={newItems => {
+                        setProjects(newItems);
+                        setValue("projects", newItems);
+                     }}
+                     error={Boolean(errors.projects)}
+                     helperText={errors.projects && errors.projects.message}
+                     placeholder="https://github.com/jsdcommunity/static-website"
+                  />
+               )}
+
+               {userType === "developer" && (
+                  <MultiItemInput
+                     title="Skills *"
+                     inputMinLength={1}
+                     inputMaxLength={null}
+                     sx={{ mb: 2 }}
+                     onItemsUpdate={newItems => {
+                        setSkills(newItems);
+                        setValue("skills", newItems);
+                     }}
+                     error={Boolean(errors.skills)}
+                     helperText={errors.skills && errors.skills.message}
+                     placeholder="HTML, CSS, Javascript, React"
+                  />
+               )}
+               {userType === "developer" && (
+                  <MultiItemInput
+                     title="Experience *"
+                     inputMinLength={5}
+                     inputMaxLength={null}
+                     sx={{ mb: 2 }}
+                     onItemsUpdate={newItems => {
+                        setExperience(newItems);
+                        setValue("experience", newItems);
+                     }}
+                     error={Boolean(errors.experience)}
+                     helperText={errors.experience && errors.experience.message}
+                     placeholder="Worked as a web developer for 8 years....."
+                  />
+               )}
             </Grid>
          </Box>
          <Box
@@ -191,7 +329,11 @@ function Step3(props) {
                Back
             </Button>
             <Button onClick={handleSubmit(onSubmit)} variant="contained">
-               {activeStep === 4 ? "Finish" : "Next"}
+               {uploading ? (
+                  <CircularProgress color="info" size="24px" />
+               ) : (
+                  "Update and Finish"
+               )}
             </Button>
          </Box>
       </>

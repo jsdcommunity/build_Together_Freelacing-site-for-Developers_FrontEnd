@@ -11,7 +11,7 @@ function SignUp(props) {
 
    useEffect(() => {
       let userAuth = JWT.decode(getUserAuth());
-      if (userAuth.active) return history.push("/login");
+      if (userAuth?.active) return history.push("/");
    }, []);
 
    return (
