@@ -20,9 +20,10 @@ import GoogleAuth from "../GoogleAuth/GoogleAuth";
 import PersonAddAltRoundedIcon from "@mui/icons-material/PersonAddAltRounded";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { Link as RouterLink } from "react-router-dom";
-import { loginUser } from "../../helpers/api";
+import { forgotPassword, loginUser } from "../../helpers/api";
 import { useSnackbar } from "notistack";
 import { saveUserAuth } from "../../helpers";
+import validator from "validator";
 
 const useStyles = makeStyles({
    root: {
@@ -54,6 +55,8 @@ function LoginContent(props) {
       register,
       handleSubmit,
       formState: { errors },
+      watch,
+      setError,
    } = useForm({
       resolver: yupResolver(loginSchema),
    });
@@ -66,6 +69,30 @@ function LoginContent(props) {
             enqueueSnackbar(response.message, { variant: "success" });
             saveUserAuth(response.token);
             history.push("/");
+         })
+         .catch(err => {
+            setLoading(false);
+            enqueueSnackbar(err.message, { variant: "error" });
+         });
+   };
+
+   const email = watch("email");
+
+   const handleForgetPassword = () => {
+      if (!validator.isEmail(email || ""))
+         return setError(
+            "email",
+            { message: "Email must be valid!" },
+            { shouldFocus: true }
+         );
+      setLoading(true);
+      enqueueSnackbar("Reset password link sending to " + email, {
+         variant: "info",
+      });
+      forgotPassword(email)
+         .then(response => {
+            setLoading(false);
+            enqueueSnackbar(response.message, { variant: "success" });
          })
          .catch(err => {
             setLoading(false);
@@ -87,7 +114,7 @@ function LoginContent(props) {
                      sx={{ fontWeight: "900" }}
                      className={classes.title}
                   >
-                     Sign In
+                     Login
                   </Typography>
 
                   {/* Google authentication */}
@@ -126,11 +153,15 @@ function LoginContent(props) {
 
                      <Stack direction="row" spacing={2} sx={{ mt: 4 }}>
                         <Link
-                           color="gray"
                            className={classes.link}
                            underline="none"
+                           onClick={handleForgetPassword}
+                           sx={{
+                              opacity: loading ? 0.5 : 1,
+                              pointerEvents: loading ? "none" : "auto",
+                           }}
                         >
-                           Forgot Password ?
+                           Forgot password ?
                         </Link>
                         <Link
                            color="green"
