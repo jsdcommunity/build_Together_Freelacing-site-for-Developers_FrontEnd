@@ -11,12 +11,15 @@ import { toggleDarkMode } from "../../redux/actions/darkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 function Header(props) {
-   const darkMode = useSelector((state) => state.darkMode);
+   const darkMode = useSelector(state => state.darkMode);
    const dispatch = useDispatch();
 
-   const btnSxConfig = { ml: 1, textTransform: "none", whiteSpace: "nowrap" };
+   const history = useHistory();
+
+   const btnSXConfig = { ml: 1, textTransform: "none", whiteSpace: "nowrap" };
 
    return (
       <Box sx={{ flexGrow: 1 }}>
@@ -35,6 +38,7 @@ function Header(props) {
                         color="inherit"
                         aria-label="menu"
                         sx={{ mr: 2 }}
+                        onClick={() => history.push("/")}
                      >
                         <img src="logo.png" width="32" alt="UpBit" />
                      </IconButton>
@@ -46,16 +50,17 @@ function Header(props) {
                      className="right-part"
                      justifyContent="space-between"
                   >
-                     <Button sx={btnSxConfig} variant="contained" color="info">
+                     <Button sx={btnSXConfig} variant="contained" color="info">
                         Explore
                      </Button>
-                     <Button sx={btnSxConfig} variant="contained" color="info">
+                     <Button sx={btnSXConfig} variant="contained" color="info">
                         Log in
                      </Button>
                      <Button
-                        sx={btnSxConfig}
+                        sx={btnSXConfig}
                         variant="contained"
                         color="success"
+                        onClick={() => history.push("/sign-up")}
                      >
                         Sign up
                      </Button>
@@ -63,7 +68,7 @@ function Header(props) {
                         onClick={() => dispatch(toggleDarkMode())}
                         variant="contained"
                         color="info"
-                        sx={btnSxConfig}
+                        sx={btnSXConfig}
                      >
                         {darkMode ? <LightModeIcon /> : <DarkModeIcon />}
                      </Button>
