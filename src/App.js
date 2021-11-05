@@ -6,9 +6,12 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { useSelector } from "react-redux";
 import { CssBaseline } from "@mui/material";
 import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
+import { SnackbarProvider } from "notistack";
+import ConfirmAccount from "./pages/ConfirmAccount";
 
 function App() {
-   const darkMode = useSelector((state) => state.darkMode);
+   const darkMode = useSelector(state => state.darkMode);
 
    const theme = useMemo(
       () =>
@@ -22,13 +25,17 @@ function App() {
 
    return (
       <ThemeProvider theme={theme}>
-         <CssBaseline />
-         <Router>
-            <Switch>
-               <Route exact path="/" component={Home} />
+         <SnackbarProvider maxSnack={3}>
+            <CssBaseline />
+            <Router>
+               <Switch>
+                  <Route exact path="/" component={Home} />
+                  <Route path="/sign-up" component={SignUp} />
+                  <Route path="/confirm-account" component={ConfirmAccount} />
                <Route exact path="/login" component={Login} />
-            </Switch>
-         </Router>
+               </Switch>
+            </Router>
+         </SnackbarProvider>
       </ThemeProvider>
    );
 }

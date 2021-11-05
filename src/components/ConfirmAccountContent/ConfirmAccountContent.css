@@ -1,0 +1,11 @@
+.svg {
+   width: 35%;
+   height: auto;
+   margin-bottom: 1rem;
+}
+
+@media only screen and (max-width: 767px) {
+   .svg {
+      width: 60%;
+   }
+}
