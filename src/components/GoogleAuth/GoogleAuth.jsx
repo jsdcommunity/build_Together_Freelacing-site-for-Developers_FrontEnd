@@ -2,7 +2,7 @@ import React from "react";
 import GoogleLogin from "react-google-login";
 
 function GoogleAuth() {
-   const responseGoogle = (response) => {
+   const responseGoogle = response => {
       console.log(response);
    };
 

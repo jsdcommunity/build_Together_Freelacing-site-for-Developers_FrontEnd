@@ -60,8 +60,8 @@ function SearchBar({
       <Stack sx={{ width: 500 }}>
          <Autocomplete
             freeSolo
-            options={data.map((option) => option)}
-            renderInput={(params) => (
+            options={data.map(option => option)}
+            renderInput={params => (
                <Search ref={params.InputProps.ref}>
                   <SearchIconWrapper>
                      <SearchIcon />

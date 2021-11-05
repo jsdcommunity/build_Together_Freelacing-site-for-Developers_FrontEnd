@@ -32,7 +32,7 @@ function App() {
                   <Route exact path="/" component={Home} />
                   <Route path="/sign-up" component={SignUp} />
                   <Route path="/confirm-account" component={ConfirmAccount} />
-               <Route exact path="/login" component={Login} />
+                  <Route exact path="/login" component={Login} />
                </Switch>
             </Router>
          </SnackbarProvider>
