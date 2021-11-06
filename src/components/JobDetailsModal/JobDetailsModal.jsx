@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal, Box, Typography } from "@mui/material";
+import { Modal, Box, Typography, Button } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
@@ -87,6 +87,40 @@ const JobDetailsModal = ({
                <Typography variant="body2" color="text.secondary">
                   {job?.shortDescription}
                </Typography>
+					<Box
+						sx={{
+							marginTop: "10px",
+							display: "flex",
+							justifyContent: "space-between",
+						}}
+					>
+						<Typography
+							variant= "h4"
+							sx={{
+								fontSize: "1.7rem",
+							}}
+						>
+							$999
+						</Typography>
+						<Box>
+							<Button
+								color= "error"
+								disableElevation
+								sx={{
+									marginRight: "8px",
+								}}
+							>
+								Report
+							</Button>
+							<Button
+								variant= "contained"
+								color= "primary"
+								disableElevation
+							>
+								Send Proposal
+							</Button>
+						</Box>
+					</Box>
             </CardContent>
          </Card>
       </Modal>
