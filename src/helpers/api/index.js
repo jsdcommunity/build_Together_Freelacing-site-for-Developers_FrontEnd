@@ -51,9 +51,22 @@ const getUserData = userId =>
          .catch(err => reject(err.response.data));
    });
 
+const getJobs = () =>
+   new Promise((resolve, reject) => {
+      axios
+         .get("/get-jobs")
+         .then(response => {
+            const resData = response.data;
+            if (!resData.success) reject(resData);
+            else resolve(resData);
+         })
+         .catch(err => reject(err.response.data));
+   });
+
 export {
    sendConfirmationEmail,
    confirmAccount,
    updateUserProfile,
    getUserData,
+   getJobs,
 };
