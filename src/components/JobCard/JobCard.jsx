@@ -7,7 +7,7 @@ import Typography from "@mui/material/Typography";
 import { red, blue } from "@mui/material/colors";
 import { Button } from "@mui/material";
 
-const JobCard = ({job, cardClick, profileClick, labelClick}) => {
+const JobCard = ({ job, cardClick, profileClick, labelClick }) => {
    return (
       <Card
          sx={{
@@ -17,27 +17,25 @@ const JobCard = ({job, cardClick, profileClick, labelClick}) => {
       >
          <CardContent
             sx={{
-               cursor: "pointer"
+               cursor: "pointer",
             }}
          >
-            {
-               job.labels.map((label, index) => (
-                  <Button
-                     color="success"
-                     size="small"
-                     variant="contained"
-                     disableElevation
-                     sx={{
-                        padding: "0 6px",
-                        margin: "0 5px 5px 0",
-                     }}
-                     onClick={()=> labelClick(label)}
-                     key={index}
-                  >
-                     {label}
-                  </Button>
-               ))
-            }
+            {job.labels.map((label, index) => (
+               <Button
+                  color="success"
+                  size="small"
+                  variant="contained"
+                  disableElevation
+                  sx={{
+                     padding: "0 6px",
+                     margin: "0 5px 5px 0",
+                  }}
+                  onClick={() => labelClick(label)}
+                  key={index}
+               >
+                  {label}
+               </Button>
+            ))}
             <Typography
                component="h1"
                color="text.primary"
@@ -46,23 +44,24 @@ const JobCard = ({job, cardClick, profileClick, labelClick}) => {
                   lineHeight: 1.3,
                   fontWeight: "500",
                }}
-               onClick={()=> cardClick(job._id)}
+               onClick={() => cardClick(job._id)}
             >
                {job.title}
             </Typography>
             <Typography
                variant="body2"
                color="text.secondary"
-               onClick={()=> cardClick(job._id)}
+               onClick={() => cardClick(job._id)}
             >
                {job.shortDescription}
             </Typography>
          </CardContent>
          <CardHeader
             avatar={
-               <Avatar sx={{
+               <Avatar
+                  sx={{
                      bgcolor: red[500],
-                     cursor: "pointer"
+                     cursor: "pointer",
                   }}
                   aria-label="recipe"
                   onClick={() => profileClick(job.userId)}
@@ -71,8 +70,8 @@ const JobCard = ({job, cardClick, profileClick, labelClick}) => {
                </Avatar>
             }
             title={job.user}
-            titleTypographyProps= {{
-               onClick: () => profileClick(job.userId)
+            titleTypographyProps={{
+               onClick: () => profileClick(job.userId),
             }}
             subheader={job.postedAt}
             sx={{
