@@ -63,10 +63,36 @@ const getJobs = () =>
          .catch(err => reject(err.response.data));
    });
 
+const loginUser = ({ email, password }) =>
+   new Promise((resolve, reject) => {
+      axios
+         .post("/login-user", { email, password })
+         .then(response => {
+            const resData = response.data;
+            if (!resData.success) reject(resData);
+            else resolve(resData);
+         })
+         .catch(err => reject(err.response.data));
+   });
+
+const forgotPassword = email =>
+   new Promise((resolve, reject) => {
+      axios
+         .post("/forgot-password", { email })
+         .then(response => {
+            const resData = response.data;
+            if (!resData.success) reject(resData);
+            else resolve(resData);
+         })
+         .catch(err => reject(err.response.data));
+   });
+
 export {
    sendConfirmationEmail,
    confirmAccount,
    updateUserProfile,
    getUserData,
    getJobs,
+   loginUser,
+   forgotPassword,
 };

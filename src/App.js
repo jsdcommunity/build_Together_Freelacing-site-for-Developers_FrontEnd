@@ -6,6 +6,7 @@ import Explore from "./pages/Explore";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { useSelector } from "react-redux";
 import { CssBaseline } from "@mui/material";
+import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import { SnackbarProvider } from "notistack";
 import ConfirmAccount from "./pages/ConfirmAccount";
@@ -33,6 +34,7 @@ function App() {
                   <Route path="/sign-up" component={SignUp} />
                   <Route path="/confirm-account" component={ConfirmAccount} />
                   <Route path="/explore" component={Explore} />
+                  <Route exact path="/login" component={Login} />
                </Switch>
             </Router>
          </SnackbarProvider>

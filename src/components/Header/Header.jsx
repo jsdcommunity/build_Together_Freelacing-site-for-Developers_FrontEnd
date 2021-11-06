@@ -53,7 +53,12 @@ function Header(props) {
                      <Button sx={btnSXConfig} variant="contained" color="info">
                         Explore
                      </Button>
-                     <Button sx={btnSXConfig} variant="contained" color="info">
+                     <Button
+                        sx={btnSXConfig}
+                        variant="contained"
+                        color="info"
+                        onClick={() => history.push("/login")}
+                     >
                         Log in
                      </Button>
                      <Button
