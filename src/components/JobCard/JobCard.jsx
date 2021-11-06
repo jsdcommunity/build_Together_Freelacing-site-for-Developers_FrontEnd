@@ -62,6 +62,9 @@ const JobCard = ({ job, cardClick, profileClick, labelClick }) => {
                   sx={{
                      bgcolor: red[500],
                      cursor: "pointer",
+                     "&:hover": {
+                        bgcolor: red[600],
+                     },
                   }}
                   aria-label="recipe"
                   onClick={() => profileClick(job.userId)}
@@ -71,6 +74,12 @@ const JobCard = ({ job, cardClick, profileClick, labelClick }) => {
             }
             title={job.user}
             titleTypographyProps={{
+               sx: {
+                  cursor: "pointer",
+                  "&:hover": {
+                     opacity: 0.8,
+                  },
+               },
                onClick: () => profileClick(job.userId),
             }}
             subheader={job.postedAt}
