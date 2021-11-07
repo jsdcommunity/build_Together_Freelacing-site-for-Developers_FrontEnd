@@ -206,7 +206,11 @@ function LoginContent(props) {
                >
                   <img src="logo512.png" alt="" width="100" />
 
-                  <Typography variant="h5" sx={{ fontWeight: "700" }}>
+                  <Typography
+                     color="CaptionText"
+                     variant="h5"
+                     sx={{ fontWeight: "700" }}
+                  >
                      Don't have an account ?
                   </Typography>
                   <Button
