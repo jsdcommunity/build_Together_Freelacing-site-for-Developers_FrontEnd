@@ -8,6 +8,7 @@ import { CssBaseline } from "@mui/material";
 import SignUp from "./pages/SignUp";
 import { SnackbarProvider } from "notistack";
 import ConfirmAccount from "./pages/ConfirmAccount";
+import ResetPassword from "./pages/ResetPassword";
 
 function App() {
    const darkMode = useSelector(state => state.darkMode);
@@ -31,6 +32,7 @@ function App() {
                   <Route exact path="/" component={Home} />
                   <Route path="/sign-up" component={SignUp} />
                   <Route path="/confirm-account" component={ConfirmAccount} />
+                  <Route path="/reset-password/*" component={ResetPassword} />
                </Switch>
             </Router>
          </SnackbarProvider>
