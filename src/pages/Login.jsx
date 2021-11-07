@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
-import Footer from "../components/Footer/Footer";
 import Header from "../components/Header/Header";
-import SignUpSteps from "../components/SignUpSteps/SignUpSteps";
-import JWT from "jsonwebtoken";
-import { getUserAuth } from "../helpers";
+import Footer from "../components/Footer/Footer";
+import LoginContent from "../components/LoginContent/LoginContent";
 import { useHistory } from "react-router-dom";
+import JWT from "jsonwebtoken";
+import { getUserAuth } from "../helpers/index";
 
-function SignUp(props) {
+function Login() {
    const history = useHistory();
 
    useEffect(() => {
@@ -15,12 +15,12 @@ function SignUp(props) {
    }, []);
 
    return (
-      <div className="sign-up">
+      <>
          <Header />
-         <SignUpSteps />
+         <LoginContent />
          <Footer />
-      </div>
+      </>
    );
 }
 
-export default SignUp;
+export default Login;
