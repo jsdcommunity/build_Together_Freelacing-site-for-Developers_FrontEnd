@@ -75,6 +75,18 @@ const forgotPassword = email =>
          .catch(err => reject(err.response.data));
    });
 
+const resetPassword = ({ token, newPassword }) =>
+   new Promise((resolve, reject) => {
+      axios
+         .post("/reset-password", { token, password: newPassword })
+         .then(response => {
+            const resData = response.data;
+            if (!resData.success) reject(resData);
+            else resolve(resData);
+         })
+         .catch(err => reject(err.response.data));
+   });
+
 export {
    sendConfirmationEmail,
    confirmAccount,
@@ -82,4 +94,5 @@ export {
    getUserData,
    loginUser,
    forgotPassword,
+   resetPassword,
 };
