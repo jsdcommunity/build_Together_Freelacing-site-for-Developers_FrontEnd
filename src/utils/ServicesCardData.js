@@ -1,27 +1,27 @@
 const ServicesData = [
     {
         txt:"Mobile Application",
-        bgImg:"assets/mobile-img.png"
+        bgImg:"svg/mobile-img.svg"
     },
     {
         txt:"Web Application",
-        bgImg:"assets/web-app.png"
+        bgImg:"svg/web-app.svg"
     },
     {
         txt:"Android Application",
-        bgImg:"assets/android-app.png"
+        bgImg:"svg/android-app.svg"
     },
     {
         txt:"Desktop Application",
-        bgImg:"assets/desktop-app.png"
+        bgImg:"svg/desktop-app.svg"
     },
     {
         txt:"Game Development",
-        bgImg:"assets/game-img.png"
+        bgImg:"svg/game-img.svg"
     },
     {
         txt:"Crossplatform Application",
-        bgImg:"assets/cross-platform.png"
+        bgImg:"svg/cross-platform.svg"
     }
 ]
 

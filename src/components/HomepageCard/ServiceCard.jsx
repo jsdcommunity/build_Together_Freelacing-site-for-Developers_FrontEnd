@@ -22,7 +22,7 @@ function ServiceCard({...item}) {
                     component="img"
                     image={item.bgImg}
                     alt="green iguana"
-                    sx={{width:"200px",alignItems:"center"}}
+                    sx={{width:"150px",alignItems:"center"}}
                 />
 
             <CardContent>
