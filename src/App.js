@@ -10,6 +10,7 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import { SnackbarProvider } from "notistack";
 import ConfirmAccount from "./pages/ConfirmAccount";
+import ResetPassword from "./pages/ResetPassword";
 
 function App() {
    const darkMode = useSelector(state => state.darkMode);
@@ -34,7 +35,8 @@ function App() {
                   <Route path="/sign-up" component={SignUp} />
                   <Route path="/confirm-account" component={ConfirmAccount} />
                   <Route path="/explore" component={Explore} />
-                  <Route exact path="/login" component={Login} />
+                  <Route path="/reset-password" component={ResetPassword} />
+                  <Route path="/login" component={Login} />
                </Switch>
             </Router>
          </SnackbarProvider>
