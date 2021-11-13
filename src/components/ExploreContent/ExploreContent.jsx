@@ -3,32 +3,31 @@ import Masonry from "@mui/lab/Masonry";
 import JobCard from "../JobCard/JobCard";
 import { Typography, Container, CircularProgress } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
+import { useSnackbar } from "notistack";
 
 import JobDetailsModal from "../JobDetailsModal/JobDetailsModal";
 import { getJobs } from "../../helpers/api";
 import { setJobs } from "../../redux/actions/jobs";
 
-import jobsArray from "../../utils/jobs";
-
 const ExploreContent = () => {
    const [status, setStatus] = useState("loading");
    const [showModal, setShowModal] = useState([]);
    const dispatch = useDispatch();
+   const { enqueueSnackbar } = useSnackbar();
    const jobs = useSelector(state => state.jobs);
 
    useEffect(() => {
       // calling for all jobs api and set to state
       if (!jobs.length)
-         // getJobs()
-         // 	.then(data => {
-         // 		dispatch(setJobs(data.jobs));
-         // 		setStatus("success");
-         // 	})
-         // 	.catch(err => {
-         // 		setStatus("failure");
-         // 	})
-         dispatch(setJobs(jobsArray));
-      setStatus("success");
+         getJobs()
+            .then(response => {
+               dispatch(setJobs(response.jobs));
+               setStatus("success");
+            })
+            .catch(err => {
+               setStatus("failure");
+               enqueueSnackbar(err.message, { variant: "error" });
+            });
    }, []);
 
    const handleModal = id => {
@@ -51,7 +50,7 @@ const ExploreContent = () => {
          <JobDetailsModal
             isOpen={Boolean(showModal.length)}
             closeFunc={() => setShowModal([])}
-            data={showModal}
+            jobData={showModal[0]}
             profileClick={goToProfile}
          />
          {status === "success" && jobs.length ? (
@@ -63,13 +62,14 @@ const ExploreContent = () => {
                   alignItems: "center",
                }}
             >
-               {jobs.map(job => (
+               {jobs.map((job, key) => (
                   <JobCard
-                     key={job._id}
-                     job={job}
+                     {...job}
+                     key={key}
                      cardClick={handleModal}
                      labelClick={labelSearch}
                      profileClick={goToProfile}
+                     jobId={job._id}
                   />
                ))}
             </Masonry>
@@ -85,10 +85,10 @@ const ExploreContent = () => {
                }}
             >
                {status === "loading" ? (
-                  <CircularProgress size="4rem" sx={{ mb: 2 }} />
+                  <CircularProgress size="3rem" sx={{ mb: 2 }} />
                ) : (
                   <>
-                     <img className="svg" src="svg/cancel.svg" alt="failure" />
+                     <img className="svg" src="svg/empty.svg" alt="Empty" />
                      <Typography
                         variant="h4"
                         sx={{

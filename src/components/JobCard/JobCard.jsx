@@ -6,8 +6,19 @@ import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import { red, blue } from "@mui/material/colors";
 import { Button } from "@mui/material";
+import moment from "moment";
 
-const JobCard = ({ job, cardClick, profileClick, labelClick }) => {
+const JobCard = ({
+   title,
+   labels = [],
+   jobId,
+   description,
+   cardClick = () => null,
+   profileClick = () => null,
+   labelClick = () => null,
+   createdAt,
+   userData = {},
+}) => {
    return (
       <Card
          sx={{
@@ -20,7 +31,7 @@ const JobCard = ({ job, cardClick, profileClick, labelClick }) => {
                cursor: "pointer",
             }}
          >
-            {job.labels.map((label, index) => (
+            {labels.map((label, index) => (
                <Button
                   color="success"
                   size="small"
@@ -44,16 +55,16 @@ const JobCard = ({ job, cardClick, profileClick, labelClick }) => {
                   lineHeight: 1.3,
                   fontWeight: "500",
                }}
-               onClick={() => cardClick(job._id)}
+               onClick={() => cardClick(jobId)}
             >
-               {job.title}
+               {title}
             </Typography>
             <Typography
                variant="body2"
                color="text.secondary"
-               onClick={() => cardClick(job._id)}
+               onClick={() => cardClick(jobId)}
             >
-               {job.shortDescription}
+               {description}
             </Typography>
          </CardContent>
          <CardHeader
@@ -67,12 +78,14 @@ const JobCard = ({ job, cardClick, profileClick, labelClick }) => {
                      },
                   }}
                   aria-label="recipe"
-                  onClick={() => profileClick(job.userId)}
+                  onClick={() => profileClick(userData._id)}
+                  src={userData.profileImageUrl}
+                  alt={userData.fullName}
                >
-                  R
+                  {userData.fullName}
                </Avatar>
             }
-            title={job.user}
+            title={userData.fullName}
             titleTypographyProps={{
                sx: {
                   cursor: "pointer",
@@ -80,9 +93,9 @@ const JobCard = ({ job, cardClick, profileClick, labelClick }) => {
                      opacity: 0.8,
                   },
                },
-               onClick: () => profileClick(job.userId),
+               onClick: () => profileClick(userData._id),
             }}
-            subheader={job.postedAt}
+            subheader={moment(createdAt).fromNow()}
             sx={{
                bgcolor: blue[400],
             }}

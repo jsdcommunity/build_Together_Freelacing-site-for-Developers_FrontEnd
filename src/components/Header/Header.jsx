@@ -50,7 +50,12 @@ function Header(props) {
                      className="right-part"
                      justifyContent="space-between"
                   >
-                     <Button sx={btnSXConfig} variant="contained" color="info">
+                     <Button
+                        sx={btnSXConfig}
+                        variant="contained"
+                        color="info"
+                        onClick={() => history.push("/explore")}
+                     >
                         Explore
                      </Button>
                      <Button

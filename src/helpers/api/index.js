@@ -51,10 +51,10 @@ const getUserData = userId =>
          .catch(err => reject(err.response.data));
    });
 
-const getJobs = () =>
+const getJobs = (page = 1, count = 12) =>
    new Promise((resolve, reject) => {
       axios
-         .get("/get-jobs")
+         .get(`/get-jobs?page=${page}&count=${count}`)
          .then(response => {
             const resData = response.data;
             if (!resData.success) reject(resData);

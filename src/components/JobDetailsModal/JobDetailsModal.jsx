@@ -6,6 +6,7 @@ import CardContent from "@mui/material/CardContent";
 import Avatar from "@mui/material/Avatar";
 import { red, green } from "@mui/material/colors";
 import CloseIcon from "@mui/icons-material/Close";
+import moment from "moment";
 
 const style = {
    position: "absolute",
@@ -20,12 +21,10 @@ const style = {
 
 const JobDetailsModal = ({
    isOpen = false,
-   closeFunc,
-   data = [],
-   profileClick,
+   closeFunc = () => null,
+   jobData = {},
+   profileClick = id => null,
 }) => {
-   const job = data[0];
-
    return (
       <Modal open={isOpen} onClose={closeFunc}>
          <Card sx={style}>
@@ -39,10 +38,12 @@ const JobDetailsModal = ({
                            bgcolor: red[600],
                         },
                      }}
-                     aria-label={job?.user}
-                     onClick={() => profileClick(job?.userId)}
+                     aria-label={jobData?.user}
+                     onClick={() => profileClick(jobData)}
+                     src={jobData?.userData?.profileImageUrl}
+                     alt={jobData?.userData?.fullName}
                   >
-                     R
+                     {jobData?.userData?.fullName}
                   </Avatar>
                }
                action={
@@ -57,7 +58,7 @@ const JobDetailsModal = ({
                      }}
                   />
                }
-               title={job?.user}
+               title={jobData?.userData?.fullName}
                titleTypographyProps={{
                   sx: {
                      cursor: "pointer",
@@ -65,9 +66,9 @@ const JobDetailsModal = ({
                         opacity: 0.8,
                      },
                   },
-                  onClick: () => profileClick(job?.userId),
+                  onClick: () => profileClick(jobData?.userData._id),
                }}
-               subheader={job?.postedAt}
+               subheader={moment(jobData?.createdAt).fromNow()}
                sx={{
                   bgcolor: green[400],
                }}
@@ -82,45 +83,42 @@ const JobDetailsModal = ({
                      fontWeight: "500",
                   }}
                >
-                  {job?.title}
+                  {jobData?.title}
                </Typography>
                <Typography variant="body2" color="text.secondary">
-                  {job?.shortDescription}
+                  {jobData?.description}
                </Typography>
-					<Box
-						sx={{
-							marginTop: "10px",
-							display: "flex",
-							justifyContent: "space-between",
-						}}
-					>
-						<Typography
-							variant= "h4"
-							sx={{
-								fontSize: "1.7rem",
-							}}
-						>
-							$999
-						</Typography>
-						<Box>
-							<Button
-								color= "error"
-								disableElevation
-								sx={{
-									marginRight: "8px",
-								}}
-							>
-								Report
-							</Button>
-							<Button
-								variant= "contained"
-								color= "primary"
-								disableElevation
-							>
-								Send Proposal
-							</Button>
-						</Box>
-					</Box>
+               <Box
+                  sx={{
+                     marginTop: "10px",
+                     display: "flex",
+                     justifyContent: "space-between",
+                  }}
+               >
+                  <Typography
+                     variant="h4"
+                     sx={{
+                        fontSize: "1.7rem",
+                        mt: 2,
+                     }}
+                  >
+                     <strong>${jobData.budget}</strong>
+                  </Typography>
+                  <Box sx={{ mt: 2 }}>
+                     <Button
+                        color="error"
+                        disableElevation
+                        sx={{
+                           mr: "8px",
+                        }}
+                     >
+                        Report
+                     </Button>
+                     <Button variant="contained" color="primary">
+                        Send Proposal
+                     </Button>
+                  </Box>
+               </Box>
             </CardContent>
          </Card>
       </Modal>
