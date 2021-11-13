@@ -4,7 +4,7 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 function HeroSection() {
     return (
-        <Paper elevation={3} sx={{mt:4,mx:3}}>
+        <Paper elevation={3} sx={{mt:4,mx:3,backgroundColor:"#cdffcd"}}>
             <Grid container spacing={2}>
                 <Grid item sx={{my:5}} xs={12} sm={6}>
                     <Typography sx={{px:{md:"100px",xs:"10px"},fontFamily:"sans-serif",fontWeight:"700",fontSize:{md:"30px",xs:"25px"}}} color="green" variant="h4"  component="div">
