@@ -1,5 +1,6 @@
 import { Grid, Paper,Typography,Button, Stack, Chip } from '@mui/material'
 import React from 'react'
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 function HeroSection() {
     return (
@@ -21,13 +22,13 @@ function HeroSection() {
                         <Chip label="Game Development" color="primary" variant="outlined" />
                         <Chip label="Many more..." color="success" variant="outlined" />
                     </Stack>
-                    <Button sx={{mx:{md:"100px",xs:"10px"}}} variant="contained">Explore now </Button>
+                    <Button endIcon={<ArrowForwardIcon />} sx={{mx:{md:"100px",xs:"10px"},my:1}} variant="contained">Explore now </Button>
                 </Grid>
                 <Grid display={{xs:"none",sm:"block"}} textAlign="center" item xs={12} sm={6}>
                    <img src="assets/hero-man.png" width="300px" alt="UpBit" />
                 </Grid>
             </Grid>
-        </Paper>
+        </Paper>    
     ) 
 }
 

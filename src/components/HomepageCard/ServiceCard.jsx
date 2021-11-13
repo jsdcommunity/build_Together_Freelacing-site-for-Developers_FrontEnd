@@ -26,7 +26,7 @@ function ServiceCard({...item}) {
                 />
 
             <CardContent>
-                <Typography textAlign="center" sx={{fontWeight:"700"}} variant="subtitle1" color="black">
+                <Typography textAlign="center" sx={{fontWeight:"700"}} variant="subtitle1" color="GrayText">
                 {item.txt}
                 </Typography>
             </CardContent>
