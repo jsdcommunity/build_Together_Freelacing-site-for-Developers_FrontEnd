@@ -3,6 +3,7 @@ import CalltoAction from './PageContents/CalltoAction';
 import Features from './PageContents/Features';
 import HeroSection from "./PageContents/HeroSection" ;
 import Services from './PageContents/Services';
+import Testimonials from "./PageContents/Testimonials"
 function HomePage() {
     return (
         <>
@@ -10,6 +11,7 @@ function HomePage() {
             <Services />
             <Features />
             <CalltoAction />
+            <Testimonials />
         </>
     )
 }
