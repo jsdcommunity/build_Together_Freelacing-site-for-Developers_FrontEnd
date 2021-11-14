@@ -6,13 +6,15 @@ import serviceReducer from "./reducers/services";
 import testimonialReducer from "./reducers/testimonials";
 
 
+import jobsReducer from "./reducers/jobs";
 
 const middlewareEnhancer = applyMiddleware(promiseMiddleware);
 const allReducers = combineReducers({
    darkMode: darkModeReducer,
    signUpSteps: signUpStepsReducer,
    services:serviceReducer,
-   testimonials:testimonialReducer
+   testimonials:testimonialReducer,
+   jobs: jobsReducer,
 });
 
 // Creating `store`

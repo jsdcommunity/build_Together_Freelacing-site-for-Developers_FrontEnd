@@ -51,6 +51,18 @@ const getUserData = userId =>
          .catch(err => reject(err.response.data));
    });
 
+const getJobs = (page = 1, count = 12) =>
+   new Promise((resolve, reject) => {
+      axios
+         .get(`/get-jobs?page=${page}&count=${count}`)
+         .then(response => {
+            const resData = response.data;
+            if (!resData.success) reject(resData);
+            else resolve(resData);
+         })
+         .catch(err => reject(err.response.data));
+   });
+
 const loginUser = ({ email, password }) =>
    new Promise((resolve, reject) => {
       axios
@@ -92,6 +104,7 @@ export {
    confirmAccount,
    updateUserProfile,
    getUserData,
+   getJobs,
    loginUser,
    forgotPassword,
    resetPassword,
