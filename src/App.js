@@ -13,7 +13,6 @@ import ConfirmAccount from "./pages/ConfirmAccount";
 import ResetPassword from "./pages/ResetPassword";
 import HomePageContent from "./pages/HomePageContent";
 
-
 function App() {
    const darkMode = useSelector(state => state.darkMode);
 

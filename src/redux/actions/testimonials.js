@@ -1,12 +1,7 @@
-const setTestimonials = testimonial => 
-    Promise.resolve({
-        type:"SET_TESTIMONIAL",
-        payload:testimonial,
-    });
+const setTestimonials = testimonial =>
+   Promise.resolve({
+      type: "SET_TESTIMONIAL",
+      payload: testimonial,
+   });
 
-
-export {setTestimonials}
-
-
-
-
+export { setTestimonials };

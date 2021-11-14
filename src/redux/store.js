@@ -5,15 +5,14 @@ import promiseMiddleware from "redux-promise";
 import serviceReducer from "./reducers/services";
 import testimonialReducer from "./reducers/testimonials";
 
-
 import jobsReducer from "./reducers/jobs";
 
 const middlewareEnhancer = applyMiddleware(promiseMiddleware);
 const allReducers = combineReducers({
    darkMode: darkModeReducer,
    signUpSteps: signUpStepsReducer,
-   services:serviceReducer,
-   testimonials:testimonialReducer,
+   services: serviceReducer,
+   testimonials: testimonialReducer,
    jobs: jobsReducer,
 });
 
