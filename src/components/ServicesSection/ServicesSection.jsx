@@ -1,16 +1,16 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setServices } from "../../../redux/actions/services";
+import { setServices } from "../../redux/actions/services";
 
-import ServiceCard from "../../HomepageCard/ServiceCard";
+import ServiceCard from "../ServiceCard/ServiceCard";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from "swiper";
-import ServicesData from "../../../utils/ServicesCardData";
+import ServicesData from "../../utils/ServicesCardData";
 import "swiper/swiper-bundle.min.css";
 import "swiper/swiper.min.css";
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
 
-function Services() {
+function ServicesSection() {
    const dispatch = useDispatch();
    const servicesArray = useSelector(state => state.services);
 
@@ -68,4 +68,4 @@ function Services() {
    );
 }
 
-export default Services;
+export default ServicesSection;

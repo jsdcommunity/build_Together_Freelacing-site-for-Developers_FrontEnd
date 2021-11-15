@@ -1,9 +1,7 @@
 import { Button, Grid, Typography } from "@mui/material";
 import React from "react";
-import { useHistory } from "react-router";
 
-function CalltoAction() {
-   const history = useHistory();
+function CalltoAction({ title, btnText, btnClick, imageSrc }) {
    return (
       <Grid
          container
@@ -25,19 +23,19 @@ function CalltoAction() {
                   ml: { xs: "10px", md: "100px" },
                }}
             >
-               Find the talent needed to get your business growing
+               {title}
             </Typography>
             <Button
-               onClick={() => history.push("/login")}
+               onClick={btnClick}
                sx={{ ml: { xs: "10px", md: "100px" }, my: 1 }}
                variant="contained"
                color="success"
             >
-               Get started
+               {btnText}
             </Button>
          </Grid>
          <Grid textAlign="center" item xs={12} md={6}>
-            <img src="assets/freelancer.png" alt="" width="50%" />
+            <img src={imageSrc} alt="UpBit Images" width="50%" />
          </Grid>
       </Grid>
    );

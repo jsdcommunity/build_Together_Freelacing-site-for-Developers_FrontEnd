@@ -1,12 +1,28 @@
 import { Grid, Paper, Typography, Button, Stack, Chip } from "@mui/material";
 import React from "react";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import { useHistory } from "react-router";
+import { useSelector } from "react-redux";
 
-function HeroSection() {
-   const history = useHistory();
+function HeroSection({
+   mainTitle,
+   subTitle,
+   labels = [],
+   imageSrc,
+   btnText,
+   btnClick = e => null,
+}) {
+   const darkMode = useSelector(state => state.darkMode);
+
    return (
-      <Paper elevation={3} sx={{ mt: 4, mx: 3, backgroundColor: "#cdffcd" }}>
+      <Paper
+         elevation={3}
+         sx={{
+            mt: 4,
+            mx: { xs: 2, md: 3 },
+            bgcolor: darkMode ? "#111" : "#cdffcd",
+            px: { xs: 1, sm: 2, md: 3 },
+         }}
+      >
          <Grid container spacing={2}>
             <Grid item sx={{ my: 5 }} xs={12} sm={6}>
                <Typography
@@ -20,8 +36,7 @@ function HeroSection() {
                   variant="h4"
                   component="div"
                >
-                  Find & Hire <br />
-                  Expert Freelancers
+                  {mainTitle}
                </Typography>
                <Typography
                   variant="subtitle1"
@@ -32,38 +47,29 @@ function HeroSection() {
                      fontStyle: "italic",
                   }}
                >
-                  Work with the best freelance talent from around the world
-                  flexible and cost-effective platform !
+                  {subTitle}
                </Typography>
                <Stack
                   sx={{ px: { md: "100px", xs: "10px" }, my: 1 }}
                   direction={{ xs: "column", md: "row" }}
                   spacing={1}
                >
-                  <Chip
-                     label="Android apps"
-                     color="primary"
-                     variant="outlined"
-                  />
-                  <Chip label="Web apps" color="success" variant="outlined" />
-                  <Chip
-                     label="Game Development"
-                     color="primary"
-                     variant="outlined"
-                  />
-                  <Chip
-                     label="Many more..."
-                     color="success"
-                     variant="outlined"
-                  />
+                  {labels.map((label, key) => (
+                     <Chip
+                        label={label}
+                        color={key % 2 === 0 ? "success" : "primary"}
+                        variant="outlined"
+                        key={key}
+                     />
+                  ))}
                </Stack>
                <Button
-                  onClick={() => history.push("/explore")}
+                  onClick={btnClick}
                   endIcon={<ArrowForwardIcon />}
                   sx={{ mx: { md: "100px", xs: "10px" }, my: 1 }}
                   variant="contained"
                >
-                  Explore now{" "}
+                  {btnText}
                </Button>
             </Grid>
             <Grid
@@ -73,7 +79,7 @@ function HeroSection() {
                xs={12}
                sm={6}
             >
-               <img src="assets/hero-man.png" width="300px" alt="UpBit" />
+               <img src={imageSrc} width="300px" alt="UpBit Images" />
             </Grid>
          </Grid>
       </Paper>

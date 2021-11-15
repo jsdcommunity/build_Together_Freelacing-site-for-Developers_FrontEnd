@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-import TestimonialsData from "../../../utils/TestimonialsData";
+import TestimonialsData from "../../utils/TestimonialsData";
 import { useDispatch, useSelector } from "react-redux";
-import { setTestimonials } from "../../../redux/actions/testimonials";
-import TestimonialCard from "../../HomepageCard/TestimonialCard";
+import { setTestimonials } from "../../redux/actions/testimonials";
+import TestimonialCard from "../TestimonialCard/TestimonialCard";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from "swiper";
 import "swiper/swiper-bundle.min.css";

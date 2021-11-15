@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getJobs } from "../../../helpers/api";
-import { setJobs } from "../../../redux/actions/jobs";
+import { getJobs } from "../../helpers/api";
+import { setJobs } from "../../redux/actions/jobs";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from "swiper";
 import "swiper/swiper-bundle.min.css";
 import "swiper/swiper.min.css";
-import JobCard from "../../JobCard/JobCard";
+import JobCard from "../JobCard/JobCard";
 import { CircularProgress, Container, Typography } from "@mui/material";
 
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);

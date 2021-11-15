@@ -12,7 +12,7 @@ function TestimonialCard({ ...item }) {
          spacing={2}
       >
          <Grid textAlign="center" item xs={12} sm={5}>
-            <img src={item.testImg} width="40%" />
+            <img src={item.testImg} alt="" width="40%" />
          </Grid>
          <Grid item xs={12} md={7} textAlign={{ xs: "center", sm: "unset" }}>
             <Typography
