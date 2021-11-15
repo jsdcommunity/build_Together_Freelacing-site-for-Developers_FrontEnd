@@ -75,7 +75,7 @@ const JobDetailsModal = ({
             />
             <CardContent>
                <Typography
-                  component="h1"
+                  variant="h5"
                   color="text.primary"
                   sx={{
                      marginBottom: "10px",
@@ -85,7 +85,20 @@ const JobDetailsModal = ({
                >
                   {jobData?.title}
                </Typography>
-               <Typography variant="body2" color="text.secondary">
+               <Typography variant="body1">Short Description</Typography>
+               <Typography
+                  sx={{ mb: 2 }}
+                  variant="body2"
+                  color="text.secondary"
+               >
+                  {jobData?.shortDescription}
+               </Typography>
+               <Typography variant="body1">Description</Typography>
+               <Typography
+                  sx={{ mb: 2 }}
+                  variant="body2"
+                  color="text.secondary"
+               >
                   {jobData?.description}
                </Typography>
                <Box

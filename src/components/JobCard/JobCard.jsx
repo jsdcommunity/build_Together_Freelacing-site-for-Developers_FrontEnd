@@ -12,7 +12,7 @@ const JobCard = ({
    title,
    labels = [],
    jobId,
-   description,
+   shortDescription,
    cardClick = () => null,
    profileClick = () => null,
    labelClick = () => null,
@@ -64,7 +64,7 @@ const JobCard = ({
                color="text.secondary"
                onClick={() => cardClick(jobId)}
             >
-               {description}
+               {shortDescription}
             </Typography>
          </CardContent>
          <CardHeader
