@@ -27,7 +27,7 @@ function HeroSection({
             <Grid item sx={{ my: 5 }} xs={12} sm={6}>
                <Typography
                   sx={{
-                     px: { md: "100px", xs: "10px" },
+                     px: { md: 2, xs: "10px" },
                      fontFamily: "sans-serif",
                      fontWeight: "700",
                      fontSize: { md: "30px", xs: "25px" },
@@ -42,7 +42,7 @@ function HeroSection({
                   variant="subtitle1"
                   sx={{
                      fontSize: "16px",
-                     px: { md: "100px", xs: "10px" },
+                     px: { md: 2, xs: "10px" },
                      my: 1,
                      fontStyle: "italic",
                   }}
@@ -50,7 +50,7 @@ function HeroSection({
                   {subTitle}
                </Typography>
                <Stack
-                  sx={{ px: { md: "100px", xs: "10px" }, my: 1 }}
+                  sx={{ px: { md: 2, xs: "10px" }, my: 1 }}
                   direction={{ xs: "column", md: "row" }}
                   spacing={1}
                >
@@ -66,7 +66,7 @@ function HeroSection({
                <Button
                   onClick={btnClick}
                   endIcon={<ArrowForwardIcon />}
-                  sx={{ mx: { md: "100px", xs: "10px" }, my: 1 }}
+                  sx={{ mx: { md: 2, xs: "10px" }, my: 1 }}
                   variant="contained"
                >
                   {btnText}
