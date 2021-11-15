@@ -5,7 +5,7 @@ import ConfirmAccountContent from "../components/ConfirmAccountContent/ConfirmAc
 
 function ConfirmAccount(props) {
    return (
-      <div classsName="confirm-account">
+      <div id="confirm-account">
          <Header />
          <ConfirmAccountContent />
          <Footer />

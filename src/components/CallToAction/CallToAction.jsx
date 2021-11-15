@@ -1,7 +1,7 @@
 import { Button, Grid, Typography } from "@mui/material";
 import React from "react";
 
-function CalltoAction({ title, btnText, btnClick, imageSrc }) {
+function CalltoAction({ title, btnText, btnClick = () => null, imageSrc }) {
    return (
       <Grid
          container

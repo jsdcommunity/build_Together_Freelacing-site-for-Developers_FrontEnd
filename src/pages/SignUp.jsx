@@ -15,7 +15,7 @@ function SignUp(props) {
    }, []);
 
    return (
-      <div className="sign-up">
+      <div id="sign-up">
          <Header />
          <SignUpSteps />
          <Footer />

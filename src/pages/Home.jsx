@@ -5,11 +5,11 @@ import HomeContent from "../components/HomeContent/HomeContent";
 
 function Home() {
    return (
-      <>
+      <div id="home">
          <Header />
          <HomeContent />
          <Footer />
-      </>
+      </div>
    );
 }
 

@@ -1,14 +1,7 @@
-import {
-   Button,
-   Card,
-   CardActions,
-   CardContent,
-   CardMedia,
-   Typography,
-} from "@mui/material";
+import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 import React from "react";
 
-function ServiceCard({ ...item }) {
+function ServiceCard({ imageSrc, title }) {
    return (
       <>
          <Card
@@ -28,7 +21,7 @@ function ServiceCard({ ...item }) {
          >
             <CardMedia
                component="img"
-               image={item.bgImg}
+               image={imageSrc}
                alt="green iguana"
                sx={{ width: "150px", alignItems: "center" }}
             />
@@ -40,7 +33,7 @@ function ServiceCard({ ...item }) {
                   variant="subtitle1"
                   color="GrayText"
                >
-                  {item.txt}
+                  {title}
                </Typography>
             </CardContent>
          </Card>

@@ -5,7 +5,7 @@ import ResetPasswordContent from "../components/ResetPasswordContent/ResetPasswo
 
 function ResetPassword(props) {
    return (
-      <div classsName="confirm-account">
+      <div id="confirm-account">
          <Header />
          <ResetPasswordContent />
          <Footer />
