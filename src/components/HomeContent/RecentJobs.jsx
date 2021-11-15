@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getJobs } from "../../helpers/api";
 import { setJobs } from "../../redux/actions/jobs";
-
+import { useSnackbar } from "notistack";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from "swiper";
 import "swiper/swiper-bundle.min.css";
@@ -16,6 +16,7 @@ function RecentJobs() {
    const [status, setStatus] = useState("loading");
    const dispatch = useDispatch();
    const jobs = useSelector(state => state.jobs);
+   const { enqueueSnackbar } = useSnackbar();
 
    useEffect(() => {
       // calling for all jobs api and set to state
@@ -26,6 +27,7 @@ function RecentJobs() {
                setStatus("success");
             })
             .catch(err => {
+               enqueueSnackbar(err.message, { variant: "error" });
                setStatus("failure");
             });
    }, []);
@@ -68,6 +70,7 @@ function RecentJobs() {
                      spaceBetween: 20,
                   },
                }}
+               autoHeight
                onSwiper={swiper => console.log(swiper)}
                onSlideChange={() => console.log("slide change")}
             >
