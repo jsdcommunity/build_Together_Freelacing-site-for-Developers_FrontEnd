@@ -5,11 +5,11 @@ import ExploreContent from "../components/ExploreContent/ExploreContent";
 
 const Explore = () => {
    return (
-      <>
+      <div id="explore">
          <Header />
          <ExploreContent />
          <Footer />
-      </>
+      </div>
    );
 };
 
