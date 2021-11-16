@@ -6,10 +6,13 @@ import Home from "../pages/Home";
 import Login from "../pages/Login";
 import ResetPassword from "../pages/ResetPassword";
 import SignUp from "../pages/SignUp";
+import Header from "../components/Header/Header";
+import Footer from "../components/Footer/Footer";
 
 const GuestLayout = () => {
    return (
       <>
+         <Header />
          <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/explore" component={Explore} />
@@ -18,6 +21,7 @@ const GuestLayout = () => {
             <Route exact path="/login" component={Login} />
             <Route path="/reset-password" component={ResetPassword} />
          </Switch>
+         <Footer />
       </>
    );
 };
