@@ -1,11 +1,11 @@
-import React from 'react'
-import { Route, Switch } from 'react-router'
-import ConfirmAccount from '../pages/ConfirmAccount'
-import Explore from '../pages/Explore'
-import Home from '../pages/Home'
-import Login from '../pages/Login'
-import ResetPassword from '../pages/ResetPassword'
-import SignUp from '../pages/SignUp'
+import React from "react";
+import { Route, Switch } from "react-router";
+import ConfirmAccount from "../pages/ConfirmAccount";
+import Explore from "../pages/Explore";
+import Home from "../pages/Home";
+import Login from "../pages/Login";
+import ResetPassword from "../pages/ResetPassword";
+import SignUp from "../pages/SignUp";
 
 const GuestLayout = () => {
    return (
@@ -19,7 +19,7 @@ const GuestLayout = () => {
             <Route path="/reset-password" component={ResetPassword} />
          </Switch>
       </>
-   )
-}
+   );
+};
 
-export default GuestLayout
+export default GuestLayout;
