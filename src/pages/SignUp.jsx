@@ -1,6 +1,4 @@
 import React, { useEffect } from "react";
-import Footer from "../components/Footer/Footer";
-import Header from "../components/Header/Header";
 import SignUpSteps from "../components/SignUpSteps/SignUpSteps";
 import JWT from "jsonwebtoken";
 import { getUserAuth } from "../helpers";
@@ -16,9 +14,7 @@ function SignUp(props) {
 
    return (
       <div id="sign-up">
-         <Header />
          <SignUpSteps />
-         <Footer />
       </div>
    );
 }
