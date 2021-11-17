@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -10,16 +10,65 @@ import { Grid } from "@mui/material";
 import { toggleDarkMode } from "../../redux/actions/darkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import MobileDrawer from "../MobileDrawer/MobileDrawer";
 
-function Header(props) {
+function HeaderContent() {
+
    const darkMode = useSelector(state => state.darkMode);
+   const btnSXConfig = { ml: 1, textTransform: "none", whiteSpace: "nowrap" };
+   const history = useHistory();
    const dispatch = useDispatch();
 
-   const history = useHistory();
+   return (
+      <Box
+         display="flex"
+         flexDirection="row"
+         className="right-part"
+         justifyContent="space-between"
+      >
+         <Button
+            sx={btnSXConfig}
+            variant="contained"
+            color="info"
+            onClick={() => history.push("/explore")}
+         >
+            Explore
+         </Button>
+         <Button
+            sx={btnSXConfig}
+            variant="contained"
+            color="info"
+            onClick={() => history.push("/login")}
+         >
+            Log in
+         </Button>
+         <Button
+            sx={btnSXConfig}
+            variant="contained"
+            color="success"
+            onClick={() => history.push("/sign-up")}
+         >
+            Sign up
+         </Button>
+         <Button
+            onClick={() => dispatch(toggleDarkMode())}
+            variant="contained"
+            color="info"
+            sx={btnSXConfig}
+         >
+            {darkMode ? <LightModeIcon /> : <DarkModeIcon />}
+         </Button>
+      </Box>
+   )
+}
 
-   const btnSXConfig = { ml: 1, textTransform: "none", whiteSpace: "nowrap" };
+function Header(props) {
+
+   const [showDrawer, setShowDrawer] = useState(false);
+   const history = useHistory();
 
    return (
       <Box sx={{ flexGrow: 1 }}>
@@ -45,43 +94,9 @@ function Header(props) {
                   </Box>
                   <SearchBar />
                   <Box
-                     display={{ xs: "none", sm: "flex" }}
-                     flexDirection="row"
-                     className="right-part"
-                     justifyContent="space-between"
+                     display={{ xs: "none", sm: "block" }}
                   >
-                     <Button
-                        sx={btnSXConfig}
-                        variant="contained"
-                        color="info"
-                        onClick={() => history.push("/explore")}
-                     >
-                        Explore
-                     </Button>
-                     <Button
-                        sx={btnSXConfig}
-                        variant="contained"
-                        color="info"
-                        onClick={() => history.push("/login")}
-                     >
-                        Log in
-                     </Button>
-                     <Button
-                        sx={btnSXConfig}
-                        variant="contained"
-                        color="success"
-                        onClick={() => history.push("/sign-up")}
-                     >
-                        Sign up
-                     </Button>
-                     <Button
-                        onClick={() => dispatch(toggleDarkMode())}
-                        variant="contained"
-                        color="info"
-                        sx={btnSXConfig}
-                     >
-                        {darkMode ? <LightModeIcon /> : <DarkModeIcon />}
-                     </Button>
+                     <HeaderContent />
                   </Box>
                   <Box
                      display={{ xs: "flex", sm: "none" }}
@@ -89,17 +104,20 @@ function Header(props) {
                      justifyContent="space-between"
                   >
                      <Button
-                        onClick={() => dispatch(toggleDarkMode())}
-                        sx={{ ml: 1 }}
+                        onClick={() => setShowDrawer(true)}
+                        sx={{ ml: 1, padding: 0 }}
                         variant="contained"
                         color="info"
                      >
-                        {darkMode ? <LightModeIcon /> : <DarkModeIcon />}
+                        <MoreHorizIcon sx={{ fontSize: 37 }} />
                      </Button>
                   </Box>
                </Grid>
             </Toolbar>
          </AppBar>
+         <MobileDrawer isOpen={showDrawer} closeFunc={() => setShowDrawer(false)} >
+            <HeaderContent />
+         </MobileDrawer>
       </Box>
    );
 }
