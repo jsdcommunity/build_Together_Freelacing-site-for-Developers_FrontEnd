@@ -20,7 +20,8 @@ function RecentJobs() {
 
    useEffect(() => {
       // calling for all jobs api and set to state
-      if (!jobs.length)
+      if (jobs.length) setStatus("success");
+      else {
          getJobs()
             .then(response => {
                dispatch(setJobs(response.jobs));
@@ -30,6 +31,7 @@ function RecentJobs() {
                enqueueSnackbar(err.message, { variant: "error" });
                setStatus("failure");
             });
+      }
    }, []);
 
    return (
