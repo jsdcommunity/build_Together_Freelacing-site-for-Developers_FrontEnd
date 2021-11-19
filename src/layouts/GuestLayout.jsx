@@ -1,5 +1,5 @@
 import React from "react";
-import { Redirect, Route, Switch } from "react-router";
+import { Redirect, Route, Switch } from "react-router-dom";
 import ConfirmAccount from "../pages/ConfirmAccount";
 import Explore from "../pages/Explore";
 import Home from "../pages/Home";
