@@ -11,6 +11,7 @@ import {
    IconButton,
    Link,
    TextField,
+   Paper,
 } from "@mui/material";
 import Links from "../Links/Links";
 import GitHubIcon from "@mui/icons-material/GitHub";
@@ -150,6 +151,8 @@ function Footer(props) {
          display="flex"
          alignItems="center"
          justifyContent="space-between"
+         component={Paper}
+         elevation={3}
       >
          <FooterHero />
          <FooterLinks />
