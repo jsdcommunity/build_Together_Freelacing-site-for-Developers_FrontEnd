@@ -49,15 +49,17 @@ const ExploreContent = () => {
 
    return (
       <>
-         <JobDetailsModal
-            isOpen={Boolean(showModal.length)}
-            closeFunc={() => setShowModal([])}
-            jobData={showModal[0]}
-            profileClick={goToProfile}
-         />
+         {Boolean(showModal.length) && (
+            <JobDetailsModal
+               isOpen={Boolean(showModal.length)}
+               closeFunc={() => setShowModal([])}
+               jobData={showModal[0]}
+               profileClick={goToProfile}
+            />
+         )}
          {status === "success" && jobs.length ? (
             <Masonry
-               columns={{ sm: 2, md: 3, lg: 4, xl: 5 }}
+               columns={{ xs: 1, sm: 2, md: 3, lg: 4, xl: 5 }}
                spacing={2}
                sx={{
                   margin: 0,
