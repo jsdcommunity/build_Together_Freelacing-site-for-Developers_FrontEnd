@@ -145,7 +145,7 @@ const JobDetailsModal = ({
                ) : (
                   <ProposalForm
                      backFunc={() => setToggleForm(false)}
-                     jobId={jobData?._id}
+                     id={jobData?._id}
                   />
                )}
             </CardContent>
