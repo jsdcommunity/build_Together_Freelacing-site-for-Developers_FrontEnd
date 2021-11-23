@@ -1,15 +1,20 @@
-import React, { useEffect } from "react";
-import { Box, Button, TextField } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { Box, Button, CircularProgress, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { setProposalData } from "../../redux/actions/proposalData";
+import { useSnackbar } from "notistack";
+import { sendProposal } from "../../helpers/api/developer";
 
 const ProposalForm = ({ backFunc, id }) => {
+   const [loading, setLoading] = useState(false);
    const { jobId, description, amount, duration } = useSelector(
       state => state.proposalData
    );
 
    const dispatch = useDispatch();
+   const { enqueueSnackbar } = useSnackbar();
+
    const defaultValue = {
       jobId: id,
       description: "",
@@ -46,7 +51,18 @@ const ProposalForm = ({ backFunc, id }) => {
    }, []);
 
    const submitForm = data => {
-      console.log(data);
+      setLoading(true);
+      enqueueSnackbar("Sending proposal, Please wait...", { variant: "info" });
+      data.jobId = id;
+      sendProposal(data)
+         .then(response => {
+            setLoading(false);
+            enqueueSnackbar(response.message, { variant: "success" });
+         })
+         .catch(err => {
+            setLoading(false);
+            enqueueSnackbar(err.message, { variant: "error" });
+         });
    };
 
    return (
@@ -132,8 +148,13 @@ const ProposalForm = ({ backFunc, id }) => {
                >
                   Back
                </Button>
-               <Button variant="contained" color="primary" type="submit">
-                  Submit
+               <Button
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                  disabled={loading}
+               >
+                  {!loading ? "Submit" : <CircularProgress size="25px" />}
                </Button>
             </Box>
          </Box>
