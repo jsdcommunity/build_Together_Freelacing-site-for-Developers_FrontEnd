@@ -60,6 +60,7 @@ const ProposalForm = ({ backFunc, id }) => {
       setLoading(true);
       enqueueSnackbar("Sending proposal, Please wait...", { variant: "info" });
       data.jobId = id;
+      data.duration += " Days";
       sendProposal(data)
          .then(response => {
             setLoading(false);
@@ -133,11 +134,20 @@ const ProposalForm = ({ backFunc, id }) => {
                <TextField
                   label="Expected Duration"
                   required
+                  InputProps={{
+                     endAdornment: (
+                        <InputAdornment position="end">Days</InputAdornment>
+                     ),
+                  }}
                   {...register("duration", {
                      required: "This field is required",
+                     pattern: {
+                        value: /^[0-9]*$/,
+                        message: "Invalid amount typed.",
+                     },
                      minLength: {
-                        value: 2,
-                        message: "Too short! must be 2 characters long",
+                        value: 1,
+                        message: "Too short! must be 1 characters long",
                      },
                      maxLength: {
                         value: 8,
