@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Box, Button, CircularProgress, TextField } from "@mui/material";
+import {
+   Box,
+   Button,
+   CircularProgress,
+   TextField,
+   InputAdornment,
+} from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { setProposalData } from "../../redux/actions/proposalData";
@@ -100,6 +106,11 @@ const ProposalForm = ({ backFunc, id }) => {
                <TextField
                   label="Expected amount"
                   required
+                  InputProps={{
+                     startAdornment: (
+                        <InputAdornment position="start">$</InputAdornment>
+                     ),
+                  }}
                   {...register("amount", {
                      required: "This field is required",
                      pattern: {
