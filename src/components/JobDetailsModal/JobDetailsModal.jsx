@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Modal, Box, Typography, Button } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
@@ -7,6 +7,7 @@ import Avatar from "@mui/material/Avatar";
 import { red, green } from "@mui/material/colors";
 import CloseIcon from "@mui/icons-material/Close";
 import moment from "moment";
+import ProposalForm from "../ProposalForm/ProposalForm";
 
 const style = {
    position: "absolute",
@@ -25,6 +26,8 @@ const JobDetailsModal = ({
    jobData = {},
    profileClick = id => null,
 }) => {
+   const [toggleForm, setToggleForm] = useState(false);
+
    return (
       <Modal open={isOpen} onClose={closeFunc}>
          <Card sx={style}>
@@ -83,55 +86,68 @@ const JobDetailsModal = ({
                      fontWeight: "500",
                   }}
                >
-                  {jobData?.title}
+                  {!toggleForm ? jobData?.title : "Send Proposal"}
                </Typography>
-               <Typography variant="body1">Short Description</Typography>
-               <Typography
-                  sx={{ mb: 2 }}
-                  variant="body2"
-                  color="text.secondary"
-               >
-                  {jobData?.shortDescription}
-               </Typography>
-               <Typography variant="body1">Description</Typography>
-               <Typography
-                  sx={{ mb: 2 }}
-                  variant="body2"
-                  color="text.secondary"
-               >
-                  {jobData?.description}
-               </Typography>
-               <Box
-                  sx={{
-                     marginTop: "10px",
-                     display: "flex",
-                     justifyContent: "space-between",
-                  }}
-               >
-                  <Typography
-                     variant="h4"
-                     sx={{
-                        fontSize: "1.7rem",
-                        mt: 2,
-                     }}
-                  >
-                     <strong>${jobData.budget}</strong>
-                  </Typography>
-                  <Box sx={{ mt: 2 }}>
-                     <Button
-                        color="error"
-                        disableElevation
+               {!toggleForm ? (
+                  <>
+                     <Typography variant="body1">Short Description</Typography>
+                     <Typography
+                        sx={{ mb: 2 }}
+                        variant="body2"
+                        color="text.secondary"
+                     >
+                        {jobData?.shortDescription}
+                     </Typography>
+                     <Typography variant="body1">Description</Typography>
+                     <Typography
+                        sx={{ mb: 2 }}
+                        variant="body2"
+                        color="text.secondary"
+                     >
+                        {jobData?.description}
+                     </Typography>
+                     <Box
                         sx={{
-                           mr: "8px",
+                           marginTop: "10px",
+                           display: "flex",
+                           justifyContent: "space-between",
                         }}
                      >
-                        Report
-                     </Button>
-                     <Button variant="contained" color="primary">
-                        Send Proposal
-                     </Button>
-                  </Box>
-               </Box>
+                        <Typography
+                           variant="h4"
+                           sx={{
+                              fontSize: "1.7rem",
+                              mt: 2,
+                           }}
+                        >
+                           <strong>${jobData.budget}</strong>
+                        </Typography>
+                        <Box sx={{ mt: 2 }}>
+                           <Button
+                              color="error"
+                              disableElevation
+                              sx={{
+                                 mr: "8px",
+                              }}
+                           >
+                              Report
+                           </Button>
+                           <Button
+                              variant="contained"
+                              color="primary"
+                              onClick={() => setToggleForm(true)}
+                           >
+                              Send Proposal
+                           </Button>
+                        </Box>
+                     </Box>
+                  </>
+               ) : (
+                  <ProposalForm
+                     backFunc={() => setToggleForm(false)}
+                     id={jobData?._id}
+                  />
+               )}
             </CardContent>
          </Card>
       </Modal>
