@@ -23,6 +23,8 @@ import { Badge, Button, Grid } from '@mui/material';
 import {useHistory} from "react-router-dom"
 import DeveloperChartsSection from '../DeveloperChartSection/DeveloperChartsSection';
 import DeveloperProposals from "../DeveloperProposals/DeveloperProposals" ;
+import DeveloperOrders from '../DeveloperOrders/DeveloperOrders';
+import DeveloperProfile from '../DeveloperProfile/DeveloperProfile';
 
 
 const drawerWidth = 250;
@@ -189,7 +191,7 @@ function ResponsiveDrawer(props) {
       >
         <Toolbar />
         <Typography paragraph>
-          <DeveloperProposals />
+             <DeveloperProfile />
         </Typography>
        
         
