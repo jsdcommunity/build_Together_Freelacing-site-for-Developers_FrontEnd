@@ -6,6 +6,7 @@ import serviceReducer from "./reducers/services";
 import testimonialReducer from "./reducers/testimonials";
 import jobsReducer from "./reducers/jobs";
 import proposalData from "./reducers/proposalData";
+import userData from "./reducers/userData";
 
 const middlewareEnhancer = applyMiddleware(promiseMiddleware);
 const allReducers = combineReducers({
@@ -15,6 +16,7 @@ const allReducers = combineReducers({
    testimonials: testimonialReducer,
    jobs: jobsReducer,
    proposalData,
+   userData,
 });
 
 // Creating `store`

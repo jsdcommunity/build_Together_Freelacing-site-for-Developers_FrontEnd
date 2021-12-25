@@ -1,14 +1,31 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import "./App.css";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+   BrowserRouter as Router,
+   Switch,
+   Route,
+   useHistory,
+} from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { CssBaseline } from "@mui/material";
-import { SnackbarProvider } from "notistack";
 import GuestLayout from "./layouts/GuestLayout";
+import JWT from "jsonwebtoken";
+import { getUserAuth, clearUserAuth } from "./helpers";
+import { getUserData } from "./helpers/api";
+import { useSnackbar } from "notistack";
+import { setUserData } from "./redux/actions/userData";
+import {
+   setActiveStep,
+   setEmail,
+   setUserType,
+} from "./redux/actions/signUpSteps";
 
 function App() {
    const darkMode = useSelector(state => state.darkMode);
+   const { enqueueSnackbar } = useSnackbar();
+   const dispatch = useDispatch();
+   const history = useHistory();
 
    const theme = useMemo(
       () =>
@@ -20,16 +37,38 @@ function App() {
       [darkMode]
    );
 
+   useEffect(() => {
+      let userAuth = JWT.decode(getUserAuth());
+      if (userAuth?.userId)
+         getUserData(userAuth.userId)
+            .then(res => {
+               const userData = res.user;
+               dispatch(setUserData(userData));
+               if (!userData.active) {
+                  enqueueSnackbar(
+                     "You didn't updated your profile details yet, please update it!",
+                     { variant: "warning" }
+                  );
+                  dispatch(setUserType(userData.userType));
+                  dispatch(setEmail(userData.email));
+                  dispatch(setActiveStep(2));
+                  history.push("/sign-up");
+               }
+            })
+            .catch(err => {
+               clearUserAuth();
+               enqueueSnackbar(err.message, { variant: "error" });
+            });
+   }, []);
+
    return (
       <ThemeProvider theme={theme}>
-         <SnackbarProvider maxSnack={3}>
-            <CssBaseline />
-            <Router>
-               <Switch>
-                  <Route path="/" component={GuestLayout} />
-               </Switch>
-            </Router>
-         </SnackbarProvider>
+         <CssBaseline />
+         <Router>
+            <Switch>
+               <Route path="/" component={GuestLayout} />
+            </Switch>
+         </Router>
       </ThemeProvider>
    );
 }
