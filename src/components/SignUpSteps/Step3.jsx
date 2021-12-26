@@ -10,11 +10,20 @@ import { useSnackbar } from "notistack";
 import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { saveUserAuth } from "../../helpers";
-import { updateUserProfile } from "../../helpers/api";
-import { backStep, nextStep } from "../../redux/actions/signUpSteps";
+import { useHistory } from "react-router-dom";
+import { clearUserAuth, getUserAuth, saveUserAuth } from "../../helpers";
+import { getUserData, updateUserProfile } from "../../helpers/api";
+import {
+   backStep,
+   nextStep,
+   setActiveStep,
+   setEmail,
+   setUserType,
+} from "../../redux/actions/signUpSteps";
+import { setUserData } from "../../redux/actions/userData";
 import { HTTP_LINK_REGEX } from "../../utils/constants";
 import MultiItemInput from "../MultiItemInput/MultiItemInput";
+import JWT from "jsonwebtoken";
 
 function Step3(props) {
    const [uploading, setUploading] = useState(false);
@@ -26,6 +35,29 @@ function Step3(props) {
    );
 
    const { enqueueSnackbar } = useSnackbar();
+   const history = useHistory();
+
+   function updateUserProfileFromServer(userId) {
+      getUserData(userId)
+         .then(res => {
+            const userData = res.user;
+            dispatch(setUserData(userData));
+            if (!userData.active) {
+               enqueueSnackbar(
+                  "You didn't updated your profile details yet, please update it!",
+                  { variant: "warning" }
+               );
+               dispatch(setUserType(userData.userType));
+               dispatch(setEmail(userData.email));
+               dispatch(setActiveStep(2));
+               history.push("/sign-up");
+            }
+         })
+         .catch(err => {
+            clearUserAuth();
+            enqueueSnackbar(err.message, { variant: "error" });
+         });
+   }
 
    const onSubmit = data => {
       if (uploading) return null;
@@ -36,6 +68,11 @@ function Step3(props) {
             setUploading(false);
             enqueueSnackbar(response.message, { variant: "success" });
             dispatch(nextStep());
+
+            let userAuth = JWT.decode(getUserAuth());
+            if (userAuth?.userId) updateUserProfileFromServer(userAuth.userId);
+
+            history.push("/");
          })
          .catch(err => {
             setUploading(false);

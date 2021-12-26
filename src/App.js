@@ -37,28 +37,31 @@ function App() {
       [darkMode]
    );
 
+   function updateUserProfileFromServer(userId) {
+      getUserData(userId)
+         .then(res => {
+            const userData = res.user;
+            dispatch(setUserData(userData));
+            if (!userData.active) {
+               enqueueSnackbar(
+                  "You didn't updated your profile details yet, please update it!",
+                  { variant: "warning" }
+               );
+               dispatch(setUserType(userData.userType));
+               dispatch(setEmail(userData.email));
+               dispatch(setActiveStep(2));
+               history.push("/sign-up");
+            }
+         })
+         .catch(err => {
+            clearUserAuth();
+            enqueueSnackbar(err.message, { variant: "error" });
+         });
+   }
+
    useEffect(() => {
       let userAuth = JWT.decode(getUserAuth());
-      if (userAuth?.userId)
-         getUserData(userAuth.userId)
-            .then(res => {
-               const userData = res.user;
-               dispatch(setUserData(userData));
-               if (!userData.active) {
-                  enqueueSnackbar(
-                     "You didn't updated your profile details yet, please update it!",
-                     { variant: "warning" }
-                  );
-                  dispatch(setUserType(userData.userType));
-                  dispatch(setEmail(userData.email));
-                  dispatch(setActiveStep(2));
-                  history.push("/sign-up");
-               }
-            })
-            .catch(err => {
-               clearUserAuth();
-               enqueueSnackbar(err.message, { variant: "error" });
-            });
+      if (userAuth?.userId) updateUserProfileFromServer(userAuth.userId);
    }, []);
 
    return (
