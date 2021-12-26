@@ -15,7 +15,7 @@ const orderDetails = [
     {
         buyerName:"John smith",
         shortDesription:"This is a short description of project",
-        detailedDescription:"This is a descriptive description of project",
+        detailedDescription:"This is a descriptive description of project lorThis is a descriptive description of project lor",
         Amount:"250",
         phone:"+91998365478",
         email:"myname@gmail.com",
@@ -108,7 +108,7 @@ function DeveloperOrders() {
                             </Stack>
                         </AccordionDetails>
                 </Accordion>
-                   })
+                })
                }
                 
       

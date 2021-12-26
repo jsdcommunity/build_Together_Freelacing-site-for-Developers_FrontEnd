@@ -16,20 +16,22 @@ import Avatar from '@mui/material/Avatar';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import EmailIcon from '@mui/icons-material/Email';
-import SplitscreenIcon from '@mui/icons-material/Splitscreen';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
-import { Badge, Button, Grid } from '@mui/material';
-import {useHistory} from "react-router-dom"
+import { Badge, Button, Grid,Menu,MenuItem } from '@mui/material';
+
+
+
 import DeveloperChartsSection from '../DeveloperChartSection/DeveloperChartsSection';
 import DeveloperProposals from "../DeveloperProposals/DeveloperProposals" ;
 import DeveloperOrders from '../DeveloperOrders/DeveloperOrders';
 import DeveloperProfile from '../DeveloperProfile/DeveloperProfile';
 
 
+
 const drawerWidth = 250;
 
-const drawerListItems = [
+const drawerListItems = [ 
   {
     listText:"Dashborad",
     listIcon:<DashboardIcon />
@@ -43,10 +45,6 @@ const drawerListItems = [
     listIcon:<EmailIcon />
   },
   {
-    listText:"Deals",
-    listIcon:<SplitscreenIcon />
-  },
-  {
     listText:"Profile",
     listIcon:<ManageAccountsIcon />
   }
@@ -56,6 +54,15 @@ const drawerListItems = [
 function ResponsiveDrawer(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (e) => {
+    setAnchorEl(e.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -74,13 +81,13 @@ function ResponsiveDrawer(props) {
       </Badge>
             </ListItemIcon>
             
-            <Typography variant="h6">UpBit user</Typography>
+            <Typography variant="h6">username</Typography>
        </ListItem>
      
       <Divider />
-      <List>
+      <List sx={{pb:"100px"}}>
         {drawerListItems.map((item, index) => (
-          <ListItem button key={item}>
+          <ListItem sx={{my:1}} button key={item}>
             <ListItemIcon sx={{p:1}}>
               {item.listIcon}
             </ListItemIcon>
@@ -88,8 +95,8 @@ function ResponsiveDrawer(props) {
           </ListItem>
         ))}
       </List>
-      <Divider />
       
+      <Divider />
     </div>
   );
 
@@ -106,9 +113,8 @@ function ResponsiveDrawer(props) {
         position="fixed"
         color="default"
         sx={{
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
-          ml: { sm: `${drawerWidth}px` },
-          
+          width: { sm: `calc(100% - ${drawerWidth}px)`},
+          ml: { sm: `${drawerWidth}px` }
         }}
       >
         <Toolbar >
@@ -135,9 +141,21 @@ function ResponsiveDrawer(props) {
             </Button>
             </Grid>
             <Grid item>
-                <Avatar sx={{border:"#109CF1 2px solid"}}  alt="UPBIT User" src="assets/hero-man.png" />
+                <Avatar  onClick={handleClick} sx={{border:"#109CF1 2px solid",cursor:"pointer"}}  alt="UPBIT User" src="assets/hero-man.png" />
             </Grid>
-           
+            <Menu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                MenuListProps={{
+                  'aria-labelledby': 'basic-button',
+                }}
+              >
+                <MenuItem onClick={handleClose}>Home</MenuItem>
+                <MenuItem onClick={handleClose}>My account</MenuItem>
+                <MenuItem onClick={handleClose}>Logout</MenuItem>
+              </Menu>
           </Grid>
           
         </Toolbar>
@@ -166,6 +184,7 @@ function ResponsiveDrawer(props) {
         >
           {drawer}
         </Drawer>
+        
 
 
      {/* Drawer in desktop mode */}
@@ -190,12 +209,16 @@ function ResponsiveDrawer(props) {
         sx={{ flexGrow: 1, px:2 ,mt:-7, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
       >
         <Toolbar />
+
+          
+{/* page routing here...... */}
+
         <Typography paragraph>
              <DeveloperProfile />
-        </Typography>
-       
-        
+        </Typography> 
       </Box>
+
+
     </Box>
   );
 }

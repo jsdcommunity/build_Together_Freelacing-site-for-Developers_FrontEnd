@@ -3,25 +3,58 @@ import React, { useState } from 'react'
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import AddIcon from '@mui/icons-material/Add';
 
-const skill = ["html","css","js","react"]
+
+const userDetails = {
+    profilePic : "",
+    fullname: "",
+    email: "",
+    profileDescription: "",
+    phone: "",
+    github: "",
+    linkedin: "",
+    instagram: "",
+    skills: [] ,
+    password: "",
+    confirmPassword: ""
+}
+
 
 function DeveloperProfile() {
 
-    const [profile, setProfile] = useState("") ;
-    const [skills, setSkills] = useState(skill) ;
+    const [userData, setuserData] = useState(userDetails)
+    
 
-    const handleChange = e => {
-        setProfile(URL.createObjectURL(e.target.files[0]))
+    const handleInputChange = e => {
+
+        const name = e.target.name ;
+        const value = e.target.value ;
+        setuserData({ ...userData,[name]:value }) ;
+
     }
 
+    const handleResetButton = () => {
+            setuserData({...userData,...userDetails})
+    }
+
+    const profilePicHandler = e => {
+
+        const pic = URL.createObjectURL(e.target.files[0]);
+        setuserData({ ...userData,"profilePic":pic }) ;
+        
+    }
+
+
     const handleDelete = (item) => {
-       setSkills((skills) => skills.filter((data) => data !== item))
+
+        const skillSet = userData.skills
+        setuserData({...userData, "skills": skillSet.filter((data) => data !== item ) })
+    
     };
     const handleAddSkills = () =>{
+        const skillSet = userData.skills
         let newSkill = prompt("Add your Skills")
-        if(newSkill!=""){
-
-            setSkills([...skills,newSkill])
+        if(newSkill!==""){
+            setuserData({...userData,"skills" : [...skillSet,newSkill ]})
         }
     }
     return (
@@ -42,7 +75,7 @@ function DeveloperProfile() {
                     anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                     badgeContent={
                         <label htmlFor="icon-button-file">
-                        <input style={{display:"none"}} onChange={handleChange} accept="image/*" id="icon-button-file" type="file" />
+                        <input name="profilePic" style={{display:"none"}} onChange={profilePicHandler} accept="image/*" id="icon-button-file" type="file" />
                         <IconButton color="primary" aria-label="upload picture" component="span">
                         <PhotoCameraIcon />
                         </IconButton>
@@ -52,7 +85,7 @@ function DeveloperProfile() {
                 >
                     <Avatar
                         alt="Remy Sharp"
-                        src={profile}
+                        src={userData.profilePic}
                         sx={{ width: 100, height: 100 }}
                     />
                 </Badge>
@@ -60,29 +93,29 @@ function DeveloperProfile() {
                 </Grid>
                 <Grid item xs={4}></Grid>
                 <Grid item xs={6}>
-                <TextField fullWidth placeholder="Fullname"   />
+                <TextField fullWidth value={userData.fullname} placeholder="Fullname" name="fullname"  onChange={handleInputChange} />
 
                 </Grid>
                 <Grid item xs={6}>
-                <TextField fullWidth placeholder="Email"  />
+                <TextField fullWidth  value={userData.email} placeholder="Email" name="email" onChange={handleInputChange} />
 
                 </Grid>
                 <Grid item xs={12}>
-                <TextField fullWidth placeholder="Profile description" multiline maxRows={4}/>
+                <TextField fullWidth  value={userData.profileDescription} name="profileDescription" placeholder="Profile description" multiline maxRows={4} onChange={handleInputChange}/>
                 </Grid>
                 <Grid item xs={6}>
-                <TextField fullWidth placeholder="Phone no"  />
+                <TextField fullWidth  value={userData.phone} name="phone" placeholder="Phone no"  onChange={handleInputChange} />
 
                 </Grid>
                 <Grid item xs={6}>
-                <TextField fullWidth placeholder="Github"  />
+                <TextField fullWidth value={userData.github}  name="github" placeholder="Github"  onChange={handleInputChange} />
                 </Grid>
                 <Grid item xs={6}>
-                <TextField fullWidth placeholder="Linkedin"  />
+                <TextField fullWidth value={userData.linkedin}  name="linkedin" placeholder="Linkedin"  onChange={handleInputChange} />
 
                 </Grid>
                 <Grid item xs={6}>
-                <TextField fullWidth placeholder="Instagram"  />
+                <TextField fullWidth value={userData.instagram}  placeholder="Instagram" name="instagram"  onChange={handleInputChange} />
                 </Grid>
                 
                 <Grid item xs={12}>
@@ -90,7 +123,7 @@ function DeveloperProfile() {
                             <Typography sx={{fontWeight:"500"}}>Skills :</Typography>
                             <Paper elevation={2} sx={{p:1}}>
                             {
-                                skills.map((item) => {
+                                userData.skills.map((item) => {
                                     return  <Chip
                                                 label={item}
                                                 variant="outlined"
@@ -100,13 +133,13 @@ function DeveloperProfile() {
                                             />
                                 })
                             }
-                            <Chip
-                                icon={<AddIcon />}
-                                label="Add"
-                                color="success"
-                                variant="outlined"
-                                sx={{cursor:"pointer"}}
-                                onClick={handleAddSkills}
+                                <Chip
+                                    icon={<AddIcon />}
+                                    label="Add"
+                                    color="success"
+                                    variant="outlined"
+                                    sx={{cursor:"pointer"}}
+                                    onClick={handleAddSkills}
                                 />
                             </Paper>
                         
@@ -117,14 +150,14 @@ function DeveloperProfile() {
                     <Typography sx={{fontWeight:"500"}}>Do you want to change your password ?</Typography>
                 </Grid>
                 <Grid item xs={6}>
-                    <TextField fullWidth placeholder="Type your password" type="password"  />
+                    <TextField value={userData.password}  name="password" fullWidth placeholder="Type your password" type="password"  onChange={handleInputChange} />
                 </Grid>
                 <Grid item xs={6}>
-                    <TextField fullWidth placeholder="Confirm password"  type="password" required/>
+                    <TextField  value={userData.confirmPassword}  name="confirmPassword" fullWidth placeholder="Confirm password"  type="password" required  onChange={handleInputChange}/>
                 </Grid>
                 <Grid item xs={12}>
-                     <Button color="success" variant="contained">Save changes</Button>
-                     <Button sx={{mx:1}} color="error" variant="contained">reset</Button>
+                     <Button onClick={() => console.log(userData)} color="success" variant="contained">Save changes</Button>
+                     <Button onClick={handleResetButton} sx={{mx:1}} color="error" variant="contained">reset</Button>
                 </Grid>
             </Grid>
         </div>
