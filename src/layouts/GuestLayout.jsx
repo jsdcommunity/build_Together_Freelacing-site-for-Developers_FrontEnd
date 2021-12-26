@@ -8,14 +8,13 @@ import ResetPassword from "../pages/ResetPassword";
 import SignUp from "../pages/SignUp";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
-import DeveloperDashboard from "../components/DeveloperDashboard/DeveloperDashboard"
+import DeveloperDashboard from "../components/DeveloperDashboard/DeveloperDashboard";
 
 const GuestLayout = () => {
    return (
       <>
          <Header />
          <Switch>
-            
             <Route exact path="/" component={Home} />
             <Route exact path="/explore" component={Explore} />
             <Route exact path="/sign-up" component={SignUp} />
@@ -23,7 +22,6 @@ const GuestLayout = () => {
             <Route exact path="/login" component={Login} />
             <Route path="/reset-password" component={ResetPassword} />
             <Route path="/developer" component={DeveloperDashboard} />
-
          </Switch>
          <Footer />
       </>

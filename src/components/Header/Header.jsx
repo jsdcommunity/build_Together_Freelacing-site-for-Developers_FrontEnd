@@ -16,7 +16,6 @@ import { useHistory } from "react-router-dom";
 import MobileDrawer from "../MobileDrawer/MobileDrawer";
 
 function HeaderContent() {
-
    const darkMode = useSelector(state => state.darkMode);
    const btnSXConfig = { ml: 1, textTransform: "none", whiteSpace: "nowrap" };
    const history = useHistory();
@@ -62,11 +61,10 @@ function HeaderContent() {
             {darkMode ? <LightModeIcon /> : <DarkModeIcon />}
          </Button>
       </Box>
-   )
+   );
 }
 
 function Header(props) {
-
    const [showDrawer, setShowDrawer] = useState(false);
    const history = useHistory();
 
@@ -93,9 +91,7 @@ function Header(props) {
                      </IconButton>
                   </Box>
                   <SearchBar />
-                  <Box
-                     display={{ xs: "none", sm: "block" }}
-                  >
+                  <Box display={{ xs: "none", sm: "block" }}>
                      <HeaderContent />
                   </Box>
                   <Box
@@ -115,7 +111,10 @@ function Header(props) {
                </Grid>
             </Toolbar>
          </AppBar>
-         <MobileDrawer isOpen={showDrawer} closeFunc={() => setShowDrawer(false)} >
+         <MobileDrawer
+            isOpen={showDrawer}
+            closeFunc={() => setShowDrawer(false)}
+         >
             <HeaderContent />
          </MobileDrawer>
       </Box>
