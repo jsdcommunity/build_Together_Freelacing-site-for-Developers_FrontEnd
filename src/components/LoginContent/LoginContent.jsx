@@ -22,8 +22,17 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { Link as RouterLink } from "react-router-dom";
 import { forgotPassword, loginUser } from "../../helpers/api";
 import { useSnackbar } from "notistack";
-import { saveUserAuth } from "../../helpers";
+import { clearUserAuth, getUserAuth, saveUserAuth } from "../../helpers";
 import validator from "validator";
+import { getUserData } from "../../helpers/api";
+import { setUserData } from "../../redux/actions/userData";
+import {
+   setActiveStep,
+   setEmail,
+   setUserType,
+} from "../../redux/actions/signUpSteps";
+import { useDispatch } from "react-redux";
+import JWT from "jsonwebtoken";
 
 const useStyles = makeStyles({
    root: {
@@ -60,6 +69,29 @@ function LoginContent(props) {
    } = useForm({
       resolver: yupResolver(loginSchema),
    });
+   const dispatch = useDispatch();
+
+   function updateUserProfileFromServer(userId) {
+      getUserData(userId)
+         .then(res => {
+            const userData = res.user;
+            dispatch(setUserData(userData));
+            if (!userData.active) {
+               enqueueSnackbar(
+                  "You didn't updated your profile details yet, please update it!",
+                  { variant: "warning" }
+               );
+               dispatch(setUserType(userData.userType));
+               dispatch(setEmail(userData.email));
+               dispatch(setActiveStep(2));
+               history.push("/sign-up");
+            }
+         })
+         .catch(err => {
+            clearUserAuth();
+            enqueueSnackbar(err.message, { variant: "error" });
+         });
+   }
 
    const submitForm = data => {
       setLoading(true);
@@ -68,6 +100,10 @@ function LoginContent(props) {
             setLoading(false);
             enqueueSnackbar(response.message, { variant: "success" });
             saveUserAuth(response.token);
+
+            let userAuth = JWT.decode(getUserAuth());
+            if (userAuth?.userId) updateUserProfileFromServer(userAuth.userId);
+
             history.push("/");
          })
          .catch(err => {

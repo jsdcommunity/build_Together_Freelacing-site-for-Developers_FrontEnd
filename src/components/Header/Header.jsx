@@ -6,7 +6,14 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import "./Header.css";
 import SearchBar from "../SearchBar/SearchBar";
-import { Grid } from "@mui/material";
+import {
+   Avatar,
+   Grid,
+   Popover,
+   Typography,
+   Chip,
+   Divider,
+} from "@mui/material";
 import { toggleDarkMode } from "../../redux/actions/darkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
@@ -14,13 +21,19 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import MobileDrawer from "../MobileDrawer/MobileDrawer";
+import VerifiedIcon from "@mui/icons-material/Verified";
+import { clearUserAuth } from "../../helpers";
+import { setUserData } from "../../redux/actions/userData";
 
 function HeaderContent() {
+   const [profilePopover, setProfilePopover] = useState();
 
    const darkMode = useSelector(state => state.darkMode);
    const btnSXConfig = { ml: 1, textTransform: "none", whiteSpace: "nowrap" };
    const history = useHistory();
    const dispatch = useDispatch();
+
+   const userData = useSelector(state => state.userData);
 
    return (
       <Box
@@ -37,22 +50,86 @@ function HeaderContent() {
          >
             Explore
          </Button>
-         <Button
-            sx={btnSXConfig}
-            variant="contained"
-            color="info"
-            onClick={() => history.push("/login")}
-         >
-            Log in
-         </Button>
-         <Button
-            sx={btnSXConfig}
-            variant="contained"
-            color="success"
-            onClick={() => history.push("/sign-up")}
-         >
-            Sign up
-         </Button>
+         {!userData?.fullName ? (
+            <>
+               <Button
+                  sx={btnSXConfig}
+                  variant="contained"
+                  color="info"
+                  onClick={() => history.push("/login")}
+               >
+                  Log in
+               </Button>
+               <Button
+                  sx={btnSXConfig}
+                  variant="contained"
+                  color="success"
+                  onClick={() => history.push("/sign-up")}
+               >
+                  Sign up
+               </Button>
+            </>
+         ) : (
+            <>
+               <Popover
+                  anchorOrigin={{
+                     vertical: "top",
+                     horizontal: "left",
+                  }}
+                  open={Boolean(profilePopover)}
+                  anchorEl={profilePopover}
+                  onClose={() => setProfilePopover(false)}
+               >
+                  <Box
+                     sx={{ minWidth: "20rem", p: 3 }}
+                     display="flex"
+                     alignItems="center"
+                     justifyContent="center"
+                     flexDirection="column"
+                  >
+                     <Avatar
+                        src={`https://avatars.dicebear.com/api/adventurer-neutral/${userData.fullName}.svg`}
+                        alt={userData.fullName}
+                        variant="rounded"
+                     />
+                     <Typography variant="h6">
+                        {userData.fullName}
+                        {userData.active && (
+                           <VerifiedIcon color="success" fontSize="small" />
+                        )}
+                     </Typography>
+                     <Typography variant="caption">
+                        <Chip
+                           label={userData.email}
+                           size="small"
+                           variant="outlined"
+                        />
+                     </Typography>
+                     <Divider sx={{ width: "100%", margin: "0.5rem 0" }} />
+                     <Button
+                        variant="outlined"
+                        size="small"
+                        color="info"
+                        sx={btnSXConfig}
+                        onClick={() => {
+                           clearUserAuth();
+                           dispatch(setUserData({}));
+                           history.push("/");
+                        }}
+                     >
+                        Logout
+                     </Button>
+                  </Box>
+               </Popover>
+               <Avatar
+                  sx={{ ...btnSXConfig, cursor: "pointer" }}
+                  src={`https://avatars.dicebear.com/api/adventurer-neutral/${userData.fullName}.svg`}
+                  onClick={e => setProfilePopover(e.target)}
+                  alt={userData.fullName}
+                  variant="rounded"
+               />
+            </>
+         )}
          <Button
             onClick={() => dispatch(toggleDarkMode())}
             variant="contained"
@@ -62,11 +139,10 @@ function HeaderContent() {
             {darkMode ? <LightModeIcon /> : <DarkModeIcon />}
          </Button>
       </Box>
-   )
+   );
 }
 
 function Header(props) {
-
    const [showDrawer, setShowDrawer] = useState(false);
    const history = useHistory();
 
@@ -93,9 +169,7 @@ function Header(props) {
                      </IconButton>
                   </Box>
                   <SearchBar />
-                  <Box
-                     display={{ xs: "none", sm: "block" }}
-                  >
+                  <Box display={{ xs: "none", sm: "block" }}>
                      <HeaderContent />
                   </Box>
                   <Box
@@ -115,7 +189,10 @@ function Header(props) {
                </Grid>
             </Toolbar>
          </AppBar>
-         <MobileDrawer isOpen={showDrawer} closeFunc={() => setShowDrawer(false)} >
+         <MobileDrawer
+            isOpen={showDrawer}
+            closeFunc={() => setShowDrawer(false)}
+         >
             <HeaderContent />
          </MobileDrawer>
       </Box>

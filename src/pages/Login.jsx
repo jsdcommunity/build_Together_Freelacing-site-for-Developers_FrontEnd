@@ -9,7 +9,7 @@ function Login() {
 
    useEffect(() => {
       let userAuth = JWT.decode(getUserAuth());
-      if (userAuth?.active) return history.goBack();
+      if (userAuth?.userId) return history.goBack();
    }, []);
 
    return (

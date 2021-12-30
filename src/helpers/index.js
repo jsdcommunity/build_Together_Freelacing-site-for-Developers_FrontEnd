@@ -5,4 +5,6 @@ const saveUserAuth = userAuth => cookies.set("user-auth", userAuth);
 
 const getUserAuth = () => cookies.get("user-auth");
 
-export { saveUserAuth, getUserAuth };
+const clearUserAuth = () => cookies.remove("user-auth");
+
+export { saveUserAuth, getUserAuth, clearUserAuth };
